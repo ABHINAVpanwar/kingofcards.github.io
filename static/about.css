@@ -80,7 +80,7 @@ input[type="checkbox"] {
         top: 80px;
         left: -100%;
         background: gold;
-        height: 1200px;
+        height: 1400px;
         width: 100%;
         text-align: center;
         display: block;
@@ -116,7 +116,7 @@ input[type="checkbox"] {
 
 #s1 {
     background-color: black;
-    height: 1100px;
+    height: 1050px;
 }
 
 #s1 h1 {
@@ -149,22 +149,207 @@ input[type="checkbox"] {
     align-items: center;
 }
 
-.f{
+.f {
     padding-top: 40px;
     height: 600px;
     width: 850px;
 }
 
-@media (min-width: 500px) and (max-width: 900px) {
-    .f{
+@media (min-width: 800px) and (max-width: 900px) {
+    .f {
         height: 300px;
         width: 425px;
+    }
+
+    #s1 {
+        height: 750px;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+    .f {
+        height: 300px;
+        width: 425px;
+    }
+
+    #s1 {
+        height: 600px;
     }
 }
 
 @media (max-width: 500px) {
-    .f{
+    .f {
         height: 150px;
         width: 215px;
     }
+
+    #s1 {
+        height: 500px;
+    }
+}
+
+#s2 {
+    background-color: black;
+    height: 50px;
+}
+
+#s2 h1 {
+    color: yellow;
+    text-align: center;
+    font-size: 40px;
+}
+
+#s3 {
+    background-color: black;
+    height: 615px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#s3 #card {
+    margin: 30px;
+}
+
+#s3 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 440px;
+    width: 300px;
+}
+
+.b {
+    position: relative;
+}
+
+.b .classy {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 440px;
+}
+
+.b:hover .classy {
+    display: inline;
+}
+
+@media (max-width: 1100px) and (min-width: 800px) {
+    .b .classy {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 340px;
+    }
+
+    #s3 img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 340px;
+        width: 200px;
+    }
+
+    #s2 h1 {
+        font-size: 36px;
+    }
+
+    #s2 {
+        height: 50px;
+        padding-top: 100px;
+    }
+}
+
+@media (max-width: 800px) and (min-width: 600px) {
+    .b .classy {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 140px;
+        height: 240px;
+    }
+
+    #s3 img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 240px;
+        width: 140px;
+    }
+
+    #s2 h1 {
+        font-size: 20px;
+        padding-top: 50px;
+    }
+
+    #s3 {
+        height: 450px;
+    }
+}
+
+@media (max-width: 600px) and (min-width: 400px) {
+    .b .classy {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80px;
+        height: 130px;
+    }
+
+    #s3 img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 130px;
+        width: 80px;
+    }
+
+    #s2 h1 {
+        font-size: 20px;
+        padding-top: 60px;
+    }
+
+    #s3 {
+        height: 300px;
+    }
+}
+
+@media (max-width: 400px) {
+    .b .classy {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 68px;
+        height: 110px;
+    }
+
+    #s3 img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 110px;
+        width: 68px;
+    }
+
+    #s2 h1 {
+        font-size: 20px;
+        padding-top: 80px;
+    }
+
+    #s3 {
+        height: 300px;
+    }
+}
+
+#s4 {
+    height: 400px;
+    background-color: black;
 }
