@@ -176,7 +176,7 @@ input[type="checkbox"] {
         text-align: center;
         font-size: 50px;
         font-family: 'Slackey', cursive;
-        animation: drop 0.4s linear forwards 0.2s;
+        animation: text0 3s 1;
     }
 }
 
@@ -205,51 +205,24 @@ input[type="checkbox"] {
         text-align: center;
         font-size: 25px;
         font-family: 'Slackey', cursive;
-        animation: drop 0.4s linear forwards 0.2s;
-    }
-}
-
-@keyframes drop {
-    0% {
-        transform: translateY(-200px);
-        opacity: 0;
-    }
-
-    50% {
-        transform: translateY(0px);
-        opacity: 1;
-    }
-
-    65% {
-        transform: translateY(-17px);
-        opacity: 1;
-    }
-
-    75% {
-        transform: translateY(-22px);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(0px);
-        opacity: 1;
+        animation: text0 3s 1;
     }
 }
 
 @keyframes text0 {
     0% {
         color: black;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     30% {
-        letter-spacing: 15px;
-        margin-bottom: 20px;
+        letter-spacing: 10px;
+        margin-bottom: 10px;
     }
 
     85% {
         letter-spacing: 5px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 }
 
