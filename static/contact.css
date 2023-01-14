@@ -131,7 +131,7 @@ input[type="checkbox"] {
 
 @media (max-width: 500px) {
     #us {
-        font-size: 24px;
+        font-size: 34px;
     }
 }
 
@@ -156,14 +156,18 @@ input[type="checkbox"] {
 
 @media (max-width: 500px) {
     #me p a {
-        font-size: 20px;
+        font-size: 32px;
         text-decoration: none;
         color: white;
         font-family: 'Amatic SC', cursive;
         transition: all 1s ease-in-out 100ms;
     }
 
+    #me p{
+        padding: 20px;
+    }
+
     #me p a:hover {
-        font-size: 22px;
+        font-size: 36px;
     }
 }
