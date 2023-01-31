@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
     margin: 0;
@@ -115,7 +116,44 @@ input[type="checkbox"] {
 }
 
 .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container img {
+    width: 100%;
+    height: 615px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container h1 {
+    position: absolute;
+    top: 240px;
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    color: gold;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+.S2 {
+    height: 615px;
+    position: relative;
     background-color: black;
-    height: 1100px;
-    padding-top: 20px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.S2 h1 {
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    color: gold;
+    opacity: 0.9;
 }
