@@ -119,37 +119,3 @@ input[type="checkbox"] {
     height: 1100px;
     padding-top: 20px;
 }
-
-input,
-textarea {
-    display: block;
-    outline: none;
-    border: 4px solid white;
-    border-radius: 30px;
-    margin: 50px auto;
-    width: 60%;
-    text-align: center;
-    background: gold;
-    color: black;
-}
-
-.btn {
-    margin: 0px auto;
-    display: block;
-    padding: 5px 12px;
-    background: black;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    border: 4px solid gold;
-    border-radius: 30px;
-    cursor: pointer;
-    outline: none;
-    transition: 1s ease-out 100ms;
-}
-
-.btn:hover {
-    color: black;
-    background: gold;
-    border: 4px solid white;
-}
