@@ -57,13 +57,10 @@
     </table>
   </section>
   <script>
-    // let dateofwinning = new Date(2023, 1, 2, 3, 26, 0, 0);
-    // let today = new Date();
-    // console.log(dateofwinning);
-    // console.log(today);
-    // let reign = today.getDate() - dateofwinning.getDate();
-    // console.log(reign);
-    setTimeout(function () { alert("ABHINAV PANWAR IS THE CURRENT WINNER OF KING OF CARDS"); }, 4000);
+    const dayofwinning = new Date("01/02/2021");
+    let reign = `${Math.floor((Date.now() - dayofwinning) / (1000 * 60 * 60 * 24))}`;
+
+    setTimeout(function () { alert("ABHINAV PANWAR IS THE CURRENT WINNER OF KING OF CARDS WITH A REIGN OF " + reign + " DAYS"); }, 4000);
   </script>
 </body>
 
