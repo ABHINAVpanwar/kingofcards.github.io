@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap');
 
 * {
     margin: 0;
@@ -147,15 +148,24 @@ input[type="checkbox"] {
     background-color: black;
     z-index: 2;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
-.S2 h1 {
-    font-size: 60px;
-    text-align: center;
+.S2 #date {
+    padding-top: 40px;
+    font-size: 40px;
     font-family: 'Press Start 2P', cursive;
+    text-align: center;
     color: gold;
+    opacity: 0.9;
+}
+
+.S2 #countdown {
+    font-size: 60px;
+    padding-top: 40px;
+    font-family: 'Rubik Vinyl', cursive;
+    text-align: center;
+    color: white;
     opacity: 0.9;
 }
 
@@ -186,14 +196,31 @@ input[type="checkbox"] {
         background-size: cover;
         background-repeat: no-repeat;
     }
+
     .S2 {
         height: 900px;
         position: relative;
         background-color: black;
         z-index: 2;
         display: flex;
-        justify-content: center;
-        align-items: center;
+    }
+
+    .S2 #date {
+        padding-top: 40px;
+        font-size: 30px;
+        font-family: 'Press Start 2P', cursive;
+        text-align: center;
+        color: gold;
+        opacity: 0.9;
+    }
+
+    .S2 #countdown {
+        font-size: 40px;
+        padding-top: 40px;
+        font-family: 'Rubik Vinyl', cursive;
+        text-align: center;
+        color: white;
+        opacity: 0.9;
     }
 }
 
@@ -224,13 +251,30 @@ input[type="checkbox"] {
         background-size: cover;
         background-repeat: no-repeat;
     }
+
     .S2 {
         height: 1000px;
         position: relative;
         background-color: black;
         z-index: 2;
         display: flex;
-        justify-content: center;
-        align-items: center;
+    }
+
+    .S2 #date {
+        padding-top: 40px;
+        font-size: 20px;
+        font-family: 'Press Start 2P', cursive;
+        text-align: center;
+        color: gold;
+        opacity: 0.9;
+    }
+
+    .S2 #countdown {
+        font-size: 30px;
+        padding-top: 40px;
+        font-family: 'Rubik Vinyl', cursive;
+        text-align: center;
+        color: white;
+        opacity: 0.9;
     }
 }
