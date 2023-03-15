@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Seymour+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+nav {
+  background-color: black;
+  height: 80px;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+li {
+  list-style: none;
+  padding-top: 25px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+  font-family: "Seymour One", sans-serif;
+  transition: all 1s ease-out 100ms;
+}
+
+a:hover {
+  color: yellow;
+  font-size: 40px;
+}
+.protect {
+  height: 900px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: gold;
+  padding-top: 120px;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+#password-form {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#password {
+  width: 300px;
+  height: 40px;
+  margin: 20px;
+  border-radius: 60px;
+}
+
+button {
+  width: 140px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 60px;
+}
+
+button:hover {
+  background-color: gold;
+  color: white;
+}
+
+@media screen and (max-width: 700px) and (min-width: 500px) {
+  h1 {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  h1 {
+    font-size: 16px;
+  }
+}
