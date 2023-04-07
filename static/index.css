@@ -124,7 +124,7 @@ input[type="checkbox"] {
 
 @media (min-width: 900px) {
   #s1 h1 {
-    color: gold;
+    color: white;
     text-align: center;
     font-size: 90px;
     font-family: "Pacifico", cursive;
@@ -153,7 +153,7 @@ input[type="checkbox"] {
 
 @media (max-width: 900px) {
   #s1 h1 {
-    color: gold;
+    color: white;
     text-align: center;
     font-size: 50px;
     font-family: "Pacifico", cursive;
@@ -182,7 +182,7 @@ input[type="checkbox"] {
 
 @media (max-width: 400px) {
   #s1 h1 {
-    color: gold;
+    color: white;
     text-align: center;
     font-size: 25px;
     font-family: "Pacifico", cursive;
