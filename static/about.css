@@ -116,21 +116,29 @@ input[type="checkbox"] {
 
 #s1 {
     background-color: black;
-    height: 1050px;
+    height: 1100px;
 }
 
 #s1 h1 {
     color: gold;
     text-align: center;
-    padding-top: 50px;
+    padding-top: 40px;
     font-size: 40px;
 }
 
-#s1 p {
+#beautify {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+#beautify p {
     color: white;
     text-align: center;
-    padding-top: 20px;
+    padding: 10px;
     font-size: 20px;
+    border: 2px solid gold;
+    width: 1200px;
 }
 
 @media (max-width: 800px) {
@@ -138,7 +146,7 @@ input[type="checkbox"] {
         font-size: 20px;
     }
 
-    #s1 p {
+    #beautify p {
         font-size: 12px;
     }
 }
