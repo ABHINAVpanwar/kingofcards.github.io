@@ -152,7 +152,7 @@ input[type="checkbox"] {
   #me p a:hover {
     font-size: 50px;
     color: #fff;
-    text-shadow: 0 0 10px #fff, 0 0 20px yellow, 0 0 40px gold;
+    text-shadow: 0 0 10px #fff, 0 0 20px gold, 0 0 40px gold;
   }
 }
 
@@ -172,6 +172,6 @@ input[type="checkbox"] {
   #me p a:hover {
     font-size: 36px;
     color: #fff;
-    text-shadow: 0 0 10px #fff, 0 0 20px yellow, 0 0 40px gold;
+    text-shadow: 0 0 10px #fff, 0 0 20px gold, 0 0 40px gold;
   }
 }
