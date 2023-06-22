@@ -27,7 +27,7 @@
     <h1 id="scroll">NEXT EDITION</h1>
   </section>
   <section class="S2">
-    <h1 id="date">ON 10/06/2023</h1>
+    <h1 id="date">ON 25/06/2023</h1>
     <h2 id="countdown"></h2>
   </section>
   <script>
@@ -37,7 +37,7 @@
       fun.style.top = 240 + f * 0.7 + 'px';
     });
     var now = new Date().getTime();
-    var countDownDate = new Date("25/10/2023").getTime();
+    var countDownDate = new Date("25/06/2023").getTime();
     var distance = countDownDate - now;
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
     document.getElementById("countdown").innerHTML = days + " DAYS LEFT";
@@ -45,7 +45,6 @@
     let y;
     let count = 0;
     let x = Math.floor(Math.random() * 100);
-    console.log(x);
     while (x != y) {
     y = prompt("GUESS THE NUMBER BETWEEN 0 TO 100");
     if (y < x) {
