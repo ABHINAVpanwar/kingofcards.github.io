@@ -37,10 +37,27 @@
       fun.style.top = 240 + f * 0.7 + 'px';
     });
     var now = new Date().getTime();
-    var countDownDate = new Date("06/10/2023").getTime();
+    var countDownDate = new Date("25/10/2023").getTime();
     var distance = countDownDate - now;
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
     document.getElementById("countdown").innerHTML = days + " DAYS LEFT";
+    // TIME PASS
+    let y;
+    let count = 0;
+    let x = Math.floor(Math.random() * 100);
+    console.log(x);
+    while (x != y) {
+    y = prompt("GUESS THE NUMBER");
+    if (y < x) {
+    alert("HIGHER");
+    } else if (y > x) {
+    alert("LOWER");
+    }
+    count = count + 1;
+    }
+    if ((x = y)) {
+    alert("YOU GUESSED IN " + count + " CHANCES");
+    }
   </script>
 </body>
 
