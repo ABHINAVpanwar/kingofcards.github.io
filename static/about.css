@@ -1,0 +1,545 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+nav {
+  display: flex;
+  height: 80px;
+  width: 100%;
+  background: white;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px 0 100px;
+  flex-wrap: wrap;
+}
+
+.logo img {
+  height: 26px;
+  width: 90px;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+nav ul li {
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: white;
+  background: gold;
+}
+
+nav .menu-btn i {
+  color: black;
+  font-size: 22px;
+  cursor: pointer;
+  display: none;
+}
+
+input[type="checkbox"] {
+  visibility: hidden; /* Use visibility instead of display to retain functionality */
+}
+
+@media (max-width: 1000px) {
+  nav {
+    padding: 0 40px 0 50px;
+  }
+}
+
+@media (max-width: 920px) {
+  nav .menu-btn i {
+    display: block; /* Show the menu icon on small screens */
+  }
+
+  #click:checked + .menu-btn i:before {
+    content: "\f00d"; /* Change icon to 'X' when menu is open */
+  }
+
+  nav ul {
+    position: absolute;
+    top: 80px;
+    left: -100%;
+    background: gold;
+    height: calc(100vh - 80px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  #click:checked + .menu-btn + ul {
+    left: 0; /* Show the menu when checkbox is checked */
+  }
+
+  nav ul li {
+    width: 100%;
+    margin: 40px 0;
+  }
+
+  nav ul li a {
+    width: 100%;
+    margin-left: -100%;
+    display: block;
+    font-size: 3vw;
+    transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  #click:checked + .menu-btn + ul li a {
+    margin-left: 0px;
+  }
+
+  nav ul li a:hover {
+    background: none;
+    font-size: 24px; /* Adjusted hover font size for better layout */
+  }
+}
+
+#s1 {
+  background-color: black;
+  height: 1100px;
+  display: block;
+  cursor: default;
+}
+
+#s1 h1 {
+  color: gold;
+  text-align: center;
+  padding-top: 40px;
+  font-size: 40px;
+}
+
+#beautify {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+#beautify p {
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+  border: 2px solid gold;
+  width: 1200px;
+}
+
+@media (max-width: 800px) {
+  #s1 h1 {
+    font-size: 20px;
+  }
+
+  #beautify p {
+    font-size: 12px;
+  }
+}
+
+#img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.f {
+  padding-top: 40px;
+  height: 600px;
+  width: 850px;
+}
+
+@media (min-width: 800px) and (max-width: 900px) {
+  .f {
+    height: 300px;
+    width: 425px;
+  }
+
+  #s1 {
+    height: 750px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .f {
+    height: 300px;
+    width: 425px;
+  }
+
+  #s1 {
+    height: 600px;
+  }
+}
+
+@media (max-width: 500px) {
+  .f {
+    height: 150px;
+    width: 215px;
+  }
+
+  #s1 {
+    height: 500px;
+  }
+}
+
+#s2 {
+  background-color: black;
+  height: 50px;
+  display: block;
+  cursor: default;
+}
+
+#s2 h1 {
+  color: gold;
+  text-align: center;
+  font-size: 40px;
+}
+
+#s3 {
+  background-color: black;
+  height: 615px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+}
+
+#s3 #card {
+  margin: 30px;
+}
+
+#s3 img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 440px;
+  width: 300px;
+}
+
+.b {
+  position: relative;
+}
+
+.b .classy {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 440px;
+}
+
+.b:hover .classy {
+  display: inline;
+}
+
+@media (max-width: 1100px) and (min-width: 800px) {
+  .b .classy {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 340px;
+  }
+
+  #s3 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 340px;
+    width: 200px;
+  }
+
+  #s2 h1 {
+    font-size: 36px;
+  }
+
+  #s2 {
+    height: 50px;
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 800px) and (min-width: 600px) {
+  .b .classy {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 240px;
+  }
+
+  #s3 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 240px;
+    width: 140px;
+  }
+
+  #s2 h1 {
+    font-size: 20px;
+    padding-top: 50px;
+  }
+
+  #s3 {
+    height: 450px;
+  }
+}
+
+@media (max-width: 600px) and (min-width: 400px) {
+  .b .classy {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 130px;
+  }
+
+  #s3 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 130px;
+    width: 80px;
+  }
+
+  #s2 h1 {
+    font-size: 20px;
+    padding-top: 60px;
+  }
+
+  #s3 {
+    height: 300px;
+  }
+}
+
+@media (max-width: 400px) {
+  .b .classy {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 68px;
+    height: 110px;
+  }
+
+  #s3 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 110px;
+    width: 68px;
+  }
+
+  #s2 h1 {
+    font-size: 20px;
+    padding-top: 80px;
+  }
+
+  #s3 {
+    height: 300px;
+  }
+}
+
+#s4 {
+  height: 530px;
+  background-color: black;
+  display: block;
+  cursor: default;
+}
+
+#s4 h1 {
+  color: gold;
+  text-align: center;
+  font-size: 40px;
+}
+
+#s4 .box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 30px;
+}
+
+#s4 div #a {
+  width: 300px;
+  height: 200px;
+  margin: 50px;
+}
+
+#s4 img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 140px;
+  width: 300px;
+}
+
+@media (max-width: 1200px) and (min-width: 800px) {
+  #s4 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 95px;
+    width: 200px;
+  }
+
+  #s4 div #a {
+    width: 200px;
+    height: 95px;
+    margin: 46px;
+  }
+
+  #s4 {
+    height: 450px;
+  }
+}
+
+@media (max-width: 800px) and (min-width: 650px) {
+  #s4 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 70px;
+    width: 140px;
+  }
+
+  #s4 div #a {
+    width: 140px;
+    height: 70px;
+    margin: 40px;
+  }
+
+  #s4 h1 {
+    font-size: 20px;
+  }
+
+  #s4 {
+    height: 350px;
+  }
+}
+
+@media (max-width: 650px) and (min-width: 580px) {
+  #s4 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 55px;
+    width: 110px;
+  }
+
+  #s4 div #a {
+    width: 110px;
+    height: 55px;
+    margin: 40px;
+  }
+
+  #s4 h1 {
+    font-size: 20px;
+  }
+
+  #s4 {
+    height: 280px;
+  }
+}
+
+@media (max-width: 580px) {
+  #s4 img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 40px;
+    width: 80px;
+  }
+
+  #s4 div #a {
+    width: 80px;
+    height: 40px;
+    margin: 25px;
+  }
+
+  #s4 h1 {
+    font-size: 20px;
+  }
+
+  #s4 {
+    height: 200px;
+  }
+}
+
+#s5 {
+  height: 140px;
+  background-color: gold;
+  display: block;
+  cursor: default;
+}
+
+#s5 p {
+  font-size: 30px;
+  text-align: center;
+  padding-top: 50px;
+}
+
+@media (max-width: 1200px) and (min-width: 800px) {
+  #s5 {
+    height: 110px;
+    background-color: gold;
+  }
+
+  #s5 p {
+    font-size: 25px;
+    text-align: center;
+    padding-top: 42px;
+  }
+}
+
+@media (max-width: 800px) and (min-width: 500px) {
+  #s5 {
+    height: 70px;
+    background-color: gold;
+  }
+
+  #s5 p {
+    font-size: 18px;
+    text-align: center;
+    padding-top: 27px;
+  }
+}
+
+@media (max-width: 500px) {
+  #s5 {
+    height: 66px;
+    background-color: gold;
+  }
+
+  #s5 p {
+    font-size: 13px;
+    text-align: center;
+    padding-top: 23px;
+  }
+}

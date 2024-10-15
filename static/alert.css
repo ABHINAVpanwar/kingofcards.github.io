@@ -1,0 +1,254 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  cursor: default;
+}
+
+nav {
+  display: flex;
+  height: 80px;
+  width: 100%;
+  background: white;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px 0 100px;
+  flex-wrap: wrap;
+}
+
+.logo img {
+  height: 26px;
+  width: 90px;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+nav ul li {
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: white;
+  background: gold;
+}
+
+nav .menu-btn i {
+  color: black;
+  font-size: 22px;
+  cursor: pointer;
+  display: none;
+}
+
+input[type="checkbox"] {
+  visibility: hidden; /* Use visibility instead of display to retain functionality */
+}
+
+@media (max-width: 1000px) {
+  nav {
+    padding: 0 40px 0 50px;
+  }
+}
+
+@media (max-width: 920px) {
+  nav .menu-btn i {
+    display: block; /* Show the menu icon on small screens */
+  }
+
+  #click:checked + .menu-btn i:before {
+    content: "\f00d"; /* Change icon to 'X' when menu is open */
+  }
+
+  nav ul {
+    position: absolute;
+    top: 80px;
+    left: -100%;
+    background: gold;
+    height: calc(100vh - 80px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  #click:checked + .menu-btn + ul {
+    left: 0; /* Show the menu when checkbox is checked */
+  }
+
+  nav ul li {
+    width: 100%;
+    margin: 40px 0;
+  }
+
+  nav ul li a {
+    width: 100%;
+    margin-left: -100%;
+    display: block;
+    font-size: 3vw;
+    transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  #click:checked + .menu-btn + ul li a {
+    margin-left: 0px;
+  }
+
+  nav ul li a:hover {
+    background: none;
+    font-size: 24px; /* Adjusted hover font size for better layout */
+  }
+}
+
+.container {
+  height: calc(100vh - 80px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container img {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container h1 {
+  position: absolute;
+  top: 240px;
+  font-size: 60px;
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
+  color: gold;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.S2 {
+  height: 100vh;
+  position: relative;
+  background-color: black;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.S2 #date {
+  padding-top: 40px;
+  font-size: 40px;
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+  color: gold;
+  opacity: 0.9;
+}
+
+.S2 #countdown {
+  font-size: 60px;
+  padding-top: 40px;
+  font-family: "Rubik Vinyl", cursive;
+  text-align: center;
+  color: white;
+  opacity: 0.9;
+}
+
+@media (max-width: 850px) and (min-width: 600px) {
+  .S2 h1 {
+    font-size: 40px;
+    text-align: center;
+    font-family: "Press Start 2P", cursive;
+    color: gold;
+    opacity: 0.9;
+  }
+
+  .container h1 {
+    position: absolute;
+    top: 240px;
+    font-size: 40px;
+    text-align: center;
+    font-family: "Press Start 2P", cursive;
+    color: gold;
+    z-index: 1;
+    opacity: 0.9;
+  }
+
+  .S2 #date {
+    padding-top: 40px;
+    font-size: 30px;
+    font-family: "Press Start 2P", cursive;
+    text-align: center;
+    color: gold;
+    opacity: 0.9;
+  }
+
+  .S2 #countdown {
+    font-size: 40px;
+    padding-top: 40px;
+    font-family: "Rubik Vinyl", cursive;
+    text-align: center;
+    color: white;
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 600px) {
+  .S2 h1 {
+    font-size: 30px;
+    text-align: center;
+    font-family: "Press Start 2P", cursive;
+    color: gold;
+    opacity: 0.9;
+  }
+
+  .container h1 {
+    position: absolute;
+    top: 240px;
+    font-size: 30px;
+    text-align: center;
+    font-family: "Press Start 2P", cursive;
+    color: gold;
+    z-index: 1;
+    opacity: 0.9;
+  }
+
+  .S2 #date {
+    padding-top: 40px;
+    font-size: 20px;
+    font-family: "Press Start 2P", cursive;
+    text-align: center;
+    color: gold;
+    opacity: 0.9;
+  }
+
+  .S2 #countdown {
+    font-size: 30px;
+    padding-top: 40px;
+    font-family: "Rubik Vinyl", cursive;
+    text-align: center;
+    color: white;
+    opacity: 0.9;
+  }
+}
