@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>KING OF CARDS</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../static/IMG/icon.png" type="image/icon type" />
     <link rel="stylesheet" href="../static/protection.css" />
   </head>
@@ -20,11 +20,29 @@
       </form>
     </section>
     <script>
+      // Function to hash the password using SHA-256
+      async function hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+      }
+
+      // Replace with the correct hash generated using the browser console
+      const storedPasswordHash = 'df39e8fbeff7aa1bc95ec48b0bf05b23dd96b03e880a52a308f8b1286b277076'; 
+
       var form = document.getElementById("password-form");
-      form.addEventListener("submit", function (event) {
+      form.addEventListener("submit", async function (event) {
         event.preventDefault();
-        var password = document.getElementById("password").value;
-        if (password === "jhulaagangg") {
+        var password = document.getElementById("password").value.trim(); // Trim to remove extra spaces
+        var enteredPasswordHash = await hashPassword(password);
+
+        console.log("Entered password hash:", enteredPasswordHash); // Log entered password hash
+        console.log("Stored password hash:", storedPasswordHash); // Log stored password hash
+
+        // Compare the hashed entered password with the stored hash
+        if (enteredPasswordHash === storedPasswordHash) {
           window.location.href = "gallery.html";
         } else {
           alert("INCORRECT PASSWORD !!!");
