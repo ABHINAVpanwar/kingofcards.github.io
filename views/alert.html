@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>KING OF CARDS</title>
@@ -31,6 +32,25 @@
     <section class="S2">
       <h1 id="date">ON 10/11/2024</h1>
       <h2 id="countdown"></h2>
+      <div id="D1">
+        <table>
+          <thead>
+            <tr>
+              <th>PLAYERS</th>
+              <th>MONOPOLY</th>
+              <th>BLUFF</th>
+              <th>SPOON</th>
+              <th>UNO</th>
+              <th>MONOPOLY</th>
+              <th>BLUFF</th>
+              <th>SPOON</th>
+              <th>UNO</th>
+              <th>TOTAL</th>
+            </tr>
+          </thead>
+          <tbody id="score-table"></tbody>
+        </table>
+      </div>
     </section>
     <script>
       let fun = document.getElementById("scroll");
@@ -38,26 +58,18 @@
         let f = window.scrollY;
         fun.style.top = 240 + f * 0.7 + "px";
       });
+
       var now = new Date().getTime();
       var countDownDate = new Date("11/10/2024").getTime();
       var distance = countDownDate - now;
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      document.getElementById("countdown").innerHTML = days + " DAYS LEFT";
-      // TIME PASS
-      // let y;
-      // let count = 0;
-      // while (days != y) {
-      //   y = prompt("GUESS THE NUMBER OF DAYS LEFT ?");
-      //   if (y < days) {
-      //     alert("HIGHER");
-      //   } else if (y > days) {
-      //     alert("LOWER");
-      //   }
-      //   count = count + 1;
-      // }
-      // if ((days = y)) {
-      //   alert("YOU GUESSED IN " + count + " CHANCES");
-      // }
+
+      if (days <= 0) {
+        document.getElementById("countdown").innerHTML =
+          "LIVE <span class='blink'>*</span>";
+      } else {
+        document.getElementById("countdown").innerHTML = days + " DAYS LEFT";
+      }
 
       const checkbox = document.getElementById("click");
       const s1 = document.getElementsByClassName("container");
@@ -65,25 +77,43 @@
 
       checkbox.addEventListener("change", function () {
         if (checkbox.checked) {
-          // Loop through the s1 collection
           for (let i = 0; i < s1.length; i++) {
             s1[i].style.display = "none";
           }
-          // Loop through the s2 collection
           for (let i = 0; i < s2.length; i++) {
             s2[i].style.display = "none";
           }
         } else {
-          // Loop through the s1 collection
           for (let i = 0; i < s1.length; i++) {
             s1[i].style.display = "flex";
           }
-          // Loop through the s2 collection
           for (let i = 0; i < s2.length; i++) {
             s2[i].style.display = "flex";
           }
         }
       });
+      fetch("http://127.0.0.1:5000/scores")
+        .then((response) => response.json())
+        .then((data) => {
+          const tableBody = document.getElementById("score-table");
+          data.forEach((player) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+          <td>${player.name}</td>
+          <td>${player.monopoly1}</td>
+          <td>${player.bluff1}</td>
+          <td>${player.spoon1}</td>
+          <td>${player.uno1}</td>
+          <td>${player.monopoly2}</td>
+          <td>${player.bluff2}</td>
+          <td>${player.spoon2}</td>
+          <td>${player.uno2}</td>
+          <td>${player.total}</td>
+        `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch((error) => console.error("Error fetching scores:", error));
     </script>
   </body>
 </html>
