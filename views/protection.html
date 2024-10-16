@@ -20,7 +20,6 @@
       </form>
     </section>
     <script>
-      // Function to hash the password using SHA-256
       async function hashPassword(password) {
         const encoder = new TextEncoder();
         const data = encoder.encode(password);
@@ -29,10 +28,8 @@
         return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
       }
 
-      // Base64 encoded URL of the gallery page (encrypted)
-      const encryptedURL = 'Z2FsbGVyeS5odG1s';  // Base64 of "gallery.html"
+      const encryptedURL = 'Z2FsbGVyeS5odG1s';
       
-      // Correct hashed password
       const storedPasswordHash = 'df39e8fbeff7aa1bc95ec48b0bf05b23dd96b03e880a52a308f8b1286b277076'; 
 
       var form = document.getElementById("password-form");
@@ -41,12 +38,11 @@
         var password = document.getElementById("password").value.trim();
         var enteredPasswordHash = await hashPassword(password);
 
-        console.log("Entered password hash:", enteredPasswordHash); // Debugging info
+        console.log("Entered password hash:", enteredPasswordHash);
 
         if (enteredPasswordHash === storedPasswordHash) {
-          // Decode Base64 URL and redirect
           var decodedURL = atob(encryptedURL);
-          window.location.href = decodedURL;  // Redirect to the decoded URL
+          window.location.href = decodedURL;
         } else {
           alert("INCORRECT PASSWORD !!!");
         }
