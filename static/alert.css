@@ -45,6 +45,7 @@ nav ul li a {
   border-radius: 5px;
   letter-spacing: 1px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 nav ul li a:hover {
@@ -155,6 +156,7 @@ input[type="checkbox"] {
   z-index: 2;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .S2 #date {
@@ -250,5 +252,67 @@ input[type="checkbox"] {
     text-align: center;
     color: white;
     opacity: 0.9;
+  }
+}
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: 0.5em 0 0.75em;
+}
+
+table tr {
+  background-color: black;
+  border: 1px solid white;
+  padding: 0.35em;
+}
+
+table th,
+table td {
+  padding: 0.625em;
+  text-align: center;
+  color: white;
+}
+
+table th {
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  #D1 {
+    display: none;
+  }
+}
+
+#D1 {
+  position: absolute;
+  bottom: 0vh;
+  background-color: black;
+  cursor: default;
+}
+
+/* Smooth blinking effect for REC */
+.blink {
+  color: red;
+  font-weight: bold;
+  animation: blinker 2s ease-in-out infinite;
+}
+
+@keyframes blinker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }
