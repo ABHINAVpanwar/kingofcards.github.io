@@ -29,21 +29,24 @@
         return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
       }
 
-      // Replace with the correct hash generated using the browser console
+      // Base64 encoded URL of the gallery page (encrypted)
+      const encryptedURL = 'Z2FsbGVyeS5odG1s';  // Base64 of "gallery.html"
+      
+      // Correct hashed password
       const storedPasswordHash = 'df39e8fbeff7aa1bc95ec48b0bf05b23dd96b03e880a52a308f8b1286b277076'; 
 
       var form = document.getElementById("password-form");
       form.addEventListener("submit", async function (event) {
         event.preventDefault();
-        var password = document.getElementById("password").value.trim(); // Trim to remove extra spaces
+        var password = document.getElementById("password").value.trim();
         var enteredPasswordHash = await hashPassword(password);
 
-        console.log("Entered password hash:", enteredPasswordHash); // Log entered password hash
-        console.log("Stored password hash:", storedPasswordHash); // Log stored password hash
+        console.log("Entered password hash:", enteredPasswordHash); // Debugging info
 
-        // Compare the hashed entered password with the stored hash
         if (enteredPasswordHash === storedPasswordHash) {
-          window.location.href = "gallery.html";
+          // Decode Base64 URL and redirect
+          var decodedURL = atob(encryptedURL);
+          window.location.href = decodedURL;  // Redirect to the decoded URL
         } else {
           alert("INCORRECT PASSWORD !!!");
         }
