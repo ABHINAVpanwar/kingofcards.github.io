@@ -95,9 +95,50 @@
       fetch("http://127.0.0.1:5000/scores")
         .then((response) => response.json())
         .then((data) => {
+          // Sorting the players: first by most wins (count of scores equal to 2 in both rounds) and then by total score
+          data.sort((a, b) => {
+            const winsA = [
+              a.monopoly1,
+              a.bluff1,
+              a.spoon1,
+              a.uno1,
+              a.monopoly2,
+              a.bluff2,
+              a.spoon2,
+              a.uno2,
+            ].filter((score) => score === 2).length;
+            const winsB = [
+              b.monopoly1,
+              b.bluff1,
+              b.spoon1,
+              b.uno1,
+              b.monopoly2,
+              b.bluff2,
+              b.spoon2,
+              b.uno2,
+            ].filter((score) => score === 2).length;
+
+            if (winsA === winsB) {
+              return b.total - a.total; // Sort by total score if wins are the same
+            }
+            return winsB - winsA; // Sort by number of wins
+          });
+
           const tableBody = document.getElementById("score-table");
-          data.forEach((player) => {
+
+          data.forEach((player, index) => {
             const row = document.createElement("tr");
+
+            // Apply CSS classes for gold and silver players
+            if (index === 0) {
+              row.classList.add("gold"); // Top player gets gold color
+            } else if (index === 1) {
+              row.classList.add("silver"); // Second player gets silver color
+            }
+            else{
+              row.classList.add("white");
+            }
+
             row.innerHTML = `
           <td>${player.name}</td>
           <td>${player.monopoly1}</td>
