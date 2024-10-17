@@ -275,11 +275,15 @@ table tr {
   padding: 0.35em;
 }
 
-table th,
-table td {
+table th {
   padding: 0.625em;
   text-align: center;
   color: white;
+}
+
+table td {
+  padding: 0.625em;
+  text-align: center;
 }
 
 table th {
@@ -309,10 +313,23 @@ table th {
 }
 
 @keyframes blinker {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
     opacity: 0;
   }
+}
+
+.gold {
+  color: gold;
+}
+
+.silver {
+  color: silver;
+}
+
+.white {
+  color: white;
 }
