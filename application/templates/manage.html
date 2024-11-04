@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MANAGE SCORES</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="icon" type="image/x-icon" href="../static/icon.png">
+    <style>
+      body {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        height: 100%;
+        background-color: black;
+        cursor: default;
+      }
+
+      h1 {
+        font-size: 3vw;
+        color: white;
+      }
+
+      h2 {
+        font-size: 2.5vw;
+        color: white;
+      }
+
+      label {
+        color: white;
+      }
+
+      #S1 {
+        height: 100%;
+        width: 100%;
+        gap: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      #Skore {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+      }
+
+      select {
+        cursor: pointer;
+        width: 150px;
+        height: 30px;
+        background-color: white;
+      }
+
+      option {
+        text-align: center;
+        cursor: pointer;
+      }
+
+      #Round {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 6vh;
+      }
+
+      form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 3vh;
+      }
+
+      input[type="number"] {
+        width: 80px;
+        height: 20px;
+        background-color: #40e4ff;
+        text-align: center;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 12px 20px;
+        background-color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5); /* Initial shadow for 3D effect */
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease; /* Smooth transition for all properties */
+        color: black;
+      }
+
+      button:hover {
+        background-color: #40e4ff; /* Brighter color on hover */
+        color: white;
+        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.5); /* Larger shadow on hover */
+        transform: translateY(-3px); /* Lift the button up slightly */
+      }
+
+      button:active {
+        background-color: black; /* Change color on click */
+        color: white;
+        box-shadow: 0 3px 8px rgba(255, 255, 255, 0.5); /* Shrink shadow on click */
+        transform: translateY(2px); /* Press down effect */
+      }
+
+      button:focus {
+        outline: none; /* Remove default focus outline */
+      }
+
+      #BGD {
+        position: absolute;
+        top: 0;
+        right: 50vw;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="S1">
+      <video src="../static/BGD.mp4" id="BGD" autoplay loop muted></video>
+      <h1>MANAGE PLAYER SCORES</h1>
+      <form method="POST" id="scoreForm">
+        <div id="Skore">
+          <select name="name" id="playerSelect" required>
+            <option value="" disabled selected>SELECT PLAYER</option>
+            {% for player in scores %}
+            <option value="{{ player.name }}">{{ player.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <h2>ROUND 1</h2>
+
+        <div id="Round">
+          <label
+            >MONOPOLY:
+            <input
+              type="number"
+              name="monopoly1"
+              min="0"
+              max="2"
+              value="0"
+              required
+            />
+          </label>
+          <label
+            >BLUFF:
+            <input
+              type="number"
+              name="bluff1"
+              min="0"
+              max="2"
+              value="0"
+              required
+            />
+          </label>
+          <label
+            >SPOON:
+            <input
+              type="number"
+              name="spoon1"
+              min="0"
+              max="2"
+              value="0"
+              required
+            />
+          </label>
+          <label
+            >UNO:
+            <input
+              type="number"
+              name="uno1"
+              min="0"
+              max="2"
+              value="0"
+              required
+            />
+          </label>
+        </div>
+
+        <h2>ROUND 2</h2>
+
+        <div id="Round">
+          <label
+            >MONOPOLY:
+            <input
+              type="number"
+              name="monopoly2"
+              min="0"
+              max="2"
+              value="0"
+              required
+            />
+          </label>
+          <label
+            >BLUFF:
+            <input
+              type="number"
+              name="bluff2"
+              min="0"
+              max="2"
+              value="0"
+              required
+            />
+          </label>
+          <label
+            >SPOON:
+            <input
+              type="number"
+              name="spoon2"
+              min="0"
+              max="2"
+              value="0"
+              required
+            />
+          </label>
+          <label
+            >UNO:
+            <input
+              type="number"
+              name="uno2"
+              min="0"
+              max="2"
+              value="0"
+              required
+            />
+          </label>
+        </div>
+
+        <button type="submit">UPDATE SCORES</button>
+      </form>
+    </section>
+
+    <script>
+      const video = document.getElementById("BGD");
+      video.playbackRate = 0.7;
+      document
+        .getElementById("scoreForm")
+        .addEventListener("submit", function (event) {
+          const playerSelect = document.getElementById("playerSelect");
+          if (!playerSelect.value) {
+            event.preventDefault();
+          }
+        });
+    </script>
+  </body>
+</html>
