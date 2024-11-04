@@ -4,7 +4,7 @@ import json
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/scores": {"origins": "https://kingofcards.netlify.app/views/alert"}})
 
 # Define the path for the scores file
 scores_file = 'scores.txt'
@@ -88,4 +88,4 @@ def manage_scores():
     return render_template('manage.html', scores=scores)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
