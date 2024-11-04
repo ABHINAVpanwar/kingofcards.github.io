@@ -4,8 +4,7 @@ import json
 import os
 
 app = Flask(__name__)
-# CORS(app, resources={r"/scores": {"origins": "https://kingofcards.netlify.app"}})
-CORS(app)
+CORS(app, resources={r"/scores": {"origins": "https://kingofcards.netlify.app"}})
 
 # Define the path for the scores file
 scores_file = 'application/scores.txt'
@@ -105,8 +104,5 @@ def reset_scores():
     scores = load_scores()  # Reload scores to reflect reset values
     return jsonify({"status": "success", "message": "Scores reset to zero."})
 
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
-
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
