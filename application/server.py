@@ -4,7 +4,7 @@ import json
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/scores": {"origins": "https://kingofcards.netlify.app/views/alert"}})
+CORS(app, resources={r"/scores": {"origins": "https://kingofcards.netlify.app"}})
 
 # Define the path for the scores file
 scores_file = 'scores.txt'
