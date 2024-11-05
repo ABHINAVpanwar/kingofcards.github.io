@@ -92,10 +92,10 @@
           }
         }
       });
-      fetch("https://kingofcards-github-io.onrender.com//scores")
+      fetch("http://127.0.0.1:5000//scores")
         .then((response) => response.json())
         .then((data) => {
-          // Sorting the players: first by most wins (count of scores equal to 2 in both rounds) and then by total score
+          // Sort the players as before
           data.sort((a, b) => {
             const winsA = [
               a.monopoly1,
@@ -118,24 +118,21 @@
               b.uno2,
             ].filter((score) => score === 2).length;
 
-            if (winsA === winsB) {
-              return b.total - a.total; // Sort by total score if wins are the same
-            }
-            return winsB - winsA; // Sort by number of wins
+            return winsB - winsA || b.total - a.total;
           });
 
+          // Clear existing rows before adding new ones
           const tableBody = document.getElementById("score-table");
+          tableBody.innerHTML = "";
 
           data.forEach((player, index) => {
             const row = document.createElement("tr");
 
-            // Apply CSS classes for gold and silver players
             if (index === 0) {
-              row.classList.add("gold"); // Top player gets gold color
+              row.classList.add("gold");
             } else if (index === 1) {
-              row.classList.add("silver"); // Second player gets silver color
-            }
-            else{
+              row.classList.add("silver");
+            } else {
               row.classList.add("white");
             }
 
@@ -153,6 +150,9 @@
         `;
             tableBody.appendChild(row);
           });
+
+          // Refresh the page after loading data
+          setTimeout(() => location.reload(), 300000); // Refresh after 60 seconds
         })
         .catch((error) => console.error("Error fetching scores:", error));
     </script>
