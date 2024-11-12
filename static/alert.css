@@ -293,7 +293,7 @@ table th {
 }
 
 @media (max-width: 900px) {
-  #D1 {
+  .hide{
     display: none;
   }
 }
