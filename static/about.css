@@ -7,6 +7,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+html {
+  background-color: black;
+}
+
 nav {
   display: flex;
   height: 80px;
