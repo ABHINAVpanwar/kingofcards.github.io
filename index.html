@@ -89,32 +89,19 @@
               " DAYS."
           );
           if (isConfirmed || !isConfirmed) {
-            // If the user clicks 'OK' on the prompt, play the media
             playMedia();
           }
-        }, 2000); // Show the alert after 4 seconds
-
-        const checkbox = document.getElementById("click");
-        const s1 = document.getElementById("s1");
-        const s2 = document.getElementById("s2");
-
-        checkbox.addEventListener("change", function () {
-          if (checkbox.checked) {
-            // Play the video and audio when checkbox is checked
-            video.play();
-            audio.currentTime = 0;
-            audio.play();
-          } else {
-            video.pause();
-            audio.pause();
-          }
-        });
+        }, 2000);
 
         // Smooth transition after video ends
         video.onended = function () {
           video.classList.add("hidden"); // Smoothly hide video
           document.body.style.overflow = "auto"; // Enable scrolling
         };
+
+        const checkbox = document.getElementById("click");
+        const s1 = document.getElementById("s1");
+        const s2 = document.getElementById("s2");
 
         checkbox.addEventListener("change", function () {
           if (checkbox.checked) {
