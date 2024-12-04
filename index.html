@@ -17,7 +17,7 @@
       preload="auto"
       src="static/opening/OpeningSong.mp3"
     ></audio>
-    <video id="intro-video" preload="auto" autoplay>
+    <video id="intro-video" preload="auto">
       <source src="static/opening/CarsOpening.mp4" type="video/mp4" />
     </video>
     <nav>
@@ -69,11 +69,12 @@
       const video = document.getElementById("intro-video");
       const audio = document.getElementById("bg-audio");
 
-      // Start audio when video starts
-      video.addEventListener("play", () => {
+      // Function to play media
+      function playMedia() {
+        video.play();
         audio.currentTime = 0;
         audio.play();
-      });
+      }
 
       window.onload = function () {
         const dayofwinning = new Date("01/02/2023");
@@ -82,16 +83,32 @@
         )}`;
 
         setTimeout(function () {
-          alert(
+          const isConfirmed = confirm(
             "ABHINAV PANWAR IS THE CURRENT WINNER OF KING OF CARDS WITH A REIGN OF " +
               reign +
-              " DAYS"
+              " DAYS."
           );
-        }, 4000);
+          if (isConfirmed || !isConfirmed) {
+            // If the user clicks 'OK' on the prompt, play the media
+            playMedia();
+          }
+        }, 2000); // Show the alert after 4 seconds
 
         const checkbox = document.getElementById("click");
         const s1 = document.getElementById("s1");
         const s2 = document.getElementById("s2");
+
+        checkbox.addEventListener("change", function () {
+          if (checkbox.checked) {
+            // Play the video and audio when checkbox is checked
+            video.play();
+            audio.currentTime = 0;
+            audio.play();
+          } else {
+            video.pause();
+            audio.pause();
+          }
+        });
 
         // Smooth transition after video ends
         video.onended = function () {
