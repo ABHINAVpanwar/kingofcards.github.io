@@ -12,7 +12,14 @@
   </head>
 
   <body>
-    <audio autoplay="" loop="" preload="auto" src="static/Song/fav.mp3"></audio>
+    <audio
+      autoplay=""
+      preload="auto"
+      src="static/opening/OpeningSong.mp3"
+    ></audio>
+    <video id="intro-video" autoplay muted>
+      <source src="static/opening/CarsOpening.mp4" type="video/mp4" />
+    </video>
     <nav>
       <div class="logo"><img src="static/IMG/logo.png" /></div>
       <input id="click" type="checkbox" />
@@ -76,6 +83,20 @@
         const checkbox = document.getElementById("click");
         const s1 = document.getElementById("s1");
         const s2 = document.getElementById("s2");
+        const video = document.getElementById("intro-video");
+        const audio = document.getElementById("bg-audio");
+
+        // Start audio when video starts
+        video.addEventListener("play", () => {
+          audio.currentTime = 0;
+          audio.play();
+        });
+
+        // Smooth transition after video ends
+        video.onended = function () {
+          video.classList.add("hidden"); // Smoothly hide video
+          document.body.style.overflow = "auto"; // Enable scrolling
+        };
 
         checkbox.addEventListener("change", function () {
           if (checkbox.checked) {
