@@ -71,9 +71,7 @@
 
       // Start audio when video starts
       video.addEventListener("play", () => {
-        video.currentTime = 0;
         audio.currentTime = 0;
-        video.play();
         audio.play();
       });
 
