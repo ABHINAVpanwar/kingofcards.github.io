@@ -13,6 +13,49 @@ html {
   background-color: black;
 }
 
+#intro-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: black;
+}
+
+#intro-video.hidden {
+  opacity: 0;
+  transition: opacity 2s ease-out;
+  pointer-events: none;
+}
+
+/* Flash effect for the video transition */
+#intro-video.hidden::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 10000;
+  opacity: 1;
+  animation: flashAnimation 1s ease-in-out forwards;
+}
+
+/* Keyframes for flash animation */
+@keyframes flashAnimation {
+  0% {
+    opacity: 1; /* Fully visible at the start */
+  }
+  50% {
+    opacity: 0.8; /* Slight fade-out in the middle */
+  }
+  100% {
+    opacity: 0; /* Fully invisible at the end */
+  }
+}
+
 nav {
   display: flex;
   height: 80px;
