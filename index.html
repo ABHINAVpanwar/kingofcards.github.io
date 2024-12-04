@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>KING OF CARDS</title>
@@ -137,6 +138,12 @@
             s1.style.display = "flex";
             s2.style.display = "block";
           }
+        });
+
+        // Ensure audio and video start simultaneously
+        video.addEventListener('canplaythrough', function () {
+          audio.play(); // Play audio when both media are ready
+          video.play(); // Play video when ready
         });
       };
     </script>
