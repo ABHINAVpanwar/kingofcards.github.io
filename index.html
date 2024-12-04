@@ -20,6 +20,16 @@
     <video id="intro-video" preload="auto">
       <source src="static/opening/CarsOpening.mp4" type="video/mp4" />
     </video>
+
+    <!-- Custom Alert Div -->
+    <div id="alert-box" class="alert-box">
+      <p id="alert-message"></p>
+      <button id="ok-button">OK</button>
+    </div>
+
+    <!-- Intro Video Overlay -->
+    <div id="intro-video-overlay" class="intro-video-overlay"></div>
+
     <nav>
       <div class="logo"><img src="static/IMG/logo.png" /></div>
       <input id="click" type="checkbox" />
@@ -65,12 +75,18 @@
         </tbody>
       </table>
     </section>
+
     <script>
       const video = document.getElementById("intro-video");
       const audio = document.getElementById("bg-audio");
+      const alertBox = document.getElementById("alert-box");
+      const okButton = document.getElementById("ok-button");
+      const alertMessage = document.getElementById("alert-message");
+      const videoOverlay = document.getElementById("intro-video-overlay");
 
       // Function to play media
       function playMedia() {
+        video.currentTime = 0;
         video.play();
         audio.currentTime = 0;
         audio.play();
@@ -82,16 +98,26 @@
           (Date.now() - dayofwinning) / (1000 * 60 * 60 * 24)
         )}`;
 
+        // Display custom alert message
+        alertMessage.innerHTML =
+          "<span style='color: gold;'>ABHINAV PANWAR</span> IS THE CURRENT WINNER OF KING OF CARDS WITH A REIGN OF " +
+          reign +
+          " DAYS.";
+
         setTimeout(function () {
-          const isConfirmed = confirm(
-            "ABHINAV PANWAR IS THE CURRENT WINNER OF KING OF CARDS WITH A REIGN OF " +
-              reign +
-              " DAYS."
-          );
-          if (isConfirmed || !isConfirmed) {
-            playMedia();
-          }
+          // Show the alert box after 2 seconds
+          alertBox.style.display = "block";
         }, 2000);
+
+        // Hide the alert box and show video overlay when user clicks "OK"
+        okButton.addEventListener("click", function () {
+          alertBox.style.display = "none"; // Hide the alert box
+          videoOverlay.style.display = "block"; // Show the video overlay
+          setTimeout(function () {
+            videoOverlay.style.display = "none"; // Hide the video overlay after 1 second
+            playMedia(); // Play the video and audio
+          }, 1000);
+        });
 
         // Smooth transition after video ends
         video.onended = function () {
