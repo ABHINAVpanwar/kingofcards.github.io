@@ -166,19 +166,17 @@
           });
 
           if (grandTotal === 24) {
+            const winner = data[0].name;
+            const winnerOverlay = document.getElementById("winner-overlay");
+            const winnerText = document.getElementById("winner-text");
+
+            winnerText.textContent = `THE WINNER IS "${winner}"! 🎉`;
+            winnerOverlay.classList.remove("hidden");
+
+            // Hide overlay after 30 seconds
             setTimeout(() => {
-              const winner = data[0].name;
-              const winnerOverlay = document.getElementById("winner-overlay");
-              const winnerText = document.getElementById("winner-text");
-
-              winnerText.textContent = `THE WINNER IS "${winner}"! 🎉`;
-              winnerOverlay.classList.remove("hidden");
-
-              // Hide overlay after 30 seconds
-              setTimeout(() => {
-                winnerOverlay.classList.add("hidden");
-              }, 30000);
-            }, 5000);
+              winnerOverlay.classList.add("hidden");
+            }, 30000);
           }
 
           // Refresh the page after loading data
