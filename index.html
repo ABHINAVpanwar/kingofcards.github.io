@@ -26,6 +26,7 @@
     <div id="alert-box" class="alert-box">
       <p id="alert-message"></p>
       <button id="ok-button">OK</button>
+      <button id="cancel-button">NO</button>
     </div>
 
     <!-- Intro Video Overlay -->
@@ -82,6 +83,7 @@
       const audio = document.getElementById("bg-audio");
       const alertBox = document.getElementById("alert-box");
       const okButton = document.getElementById("ok-button");
+      const cancelButton = document.getElementById("cancel-button");
       const alertMessage = document.getElementById("alert-message");
       const videoOverlay = document.getElementById("intro-video-overlay");
 
@@ -116,6 +118,12 @@
             videoOverlay.style.display = "none"; // Hide the video overlay after 1 second
             playMedia(); // Play the video and audio
           }, 1000);
+        });
+
+        cancelButton.addEventListener("click", function () {
+          alertBox.style.display = "none";
+          video.classList.add("hidden"); // Smoothly hide video
+          document.body.style.overflow = "auto"; // Enable scrolling
         });
 
         // Smooth transition after video ends
