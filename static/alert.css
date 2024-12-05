@@ -379,7 +379,7 @@ table th {
   background: linear-gradient(45deg, red, yellow, green, blue, orange, purple);
   opacity: 0.9;
   transform: rotate(45deg);
-  animation: fall 4s linear infinite, spin 2s linear infinite;
+  animation: fall 4s linear infinite;
 }
 /* Falling animation */
 @keyframes fall {
@@ -390,14 +390,5 @@ table th {
   100% {
     transform: translateY(110vh) rotate(360deg);
     opacity: 0;
-  }
-}
-/* Spinning animation */
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
