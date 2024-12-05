@@ -347,6 +347,7 @@ table th {
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 9999;
@@ -361,46 +362,39 @@ table th {
   text-align: center;
   margin-bottom: 2rem;
 }
-.crackers {
-  display: flex;
-  gap: 1rem;
+#confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
 }
-.cracker {
-  width: 1rem;
-  height: 1rem;
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ffff00,
-    #00ff00,
-    #0000ff,
-    #ff00ff
-  );
-  animation: fire 1s linear infinite;
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background: linear-gradient(45deg, red, yellow, green, blue, orange, purple);
+  opacity: 0.9;
+  transform: rotate(45deg);
+  animation: fall 3s linear infinite, rotate 1s linear infinite;
 }
-.cracker:nth-child(1) {
-  animation-delay: 0.2s;
-}
-.cracker:nth-child(2) {
-  animation-delay: 0.4s;
-}
-.cracker:nth-child(3) {
-  animation-delay: 0.6s;
-}
-.cracker:nth-child(4) {
-  animation-delay: 0.8s;
-}
-@keyframes fire {
+@keyframes fall {
   0% {
-    transform: scale(1) translateY(0);
+    transform: translateY(-100vh) rotate(0deg);
     opacity: 1;
   }
-  50% {
-    transform: scale(1.5) translateY(-10vh);
-    opacity: 0.8;
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
   }
   100% {
-    transform: scale(1) translateY(-20vh);
-    opacity: 0;
+    transform: rotate(360deg);
   }
 }
