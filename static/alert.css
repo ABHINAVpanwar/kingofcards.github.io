@@ -297,7 +297,7 @@ table th {
 }
 
 @media (max-width: 900px) {
-  .hide{
+  .hide {
     display: none;
   }
 }
@@ -336,4 +336,71 @@ table th {
 
 .white {
   color: white;
+}
+
+#winner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s;
+}
+#winner-overlay.hidden {
+  display: none;
+}
+.celebration h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.crackers {
+  display: flex;
+  gap: 1rem;
+}
+.cracker {
+  width: 1rem;
+  height: 1rem;
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #ff00ff
+  );
+  animation: fire 1s linear infinite;
+}
+.cracker:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.cracker:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.cracker:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.cracker:nth-child(4) {
+  animation-delay: 0.8s;
+}
+@keyframes fire {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) translateY(-10vh);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) translateY(-20vh);
+    opacity: 0;
+  }
 }
