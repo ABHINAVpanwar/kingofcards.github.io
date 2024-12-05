@@ -370,6 +370,7 @@ table th {
   height: 100%;
   overflow: hidden;
   pointer-events: none;
+  z-index: 9999;
 }
 .confetti {
   position: absolute;
@@ -378,19 +379,21 @@ table th {
   background: linear-gradient(45deg, red, yellow, green, blue, orange, purple);
   opacity: 0.9;
   transform: rotate(45deg);
-  animation: fall 3s linear infinite, rotate 1s linear infinite;
+  animation: fall 4s linear infinite, spin 2s linear infinite;
 }
+/* Falling animation */
 @keyframes fall {
   0% {
-    transform: translateY(-100vh) rotate(0deg);
+    transform: translateY(-10vh) rotate(0deg);
     opacity: 1;
   }
   100% {
-    transform: translateY(100vh) rotate(360deg);
+    transform: translateY(110vh) rotate(360deg);
     opacity: 0;
   }
 }
-@keyframes rotate {
+/* Spinning animation */
+@keyframes spin {
   0% {
     transform: rotate(0deg);
   }
