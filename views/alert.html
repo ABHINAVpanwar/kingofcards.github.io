@@ -55,12 +55,7 @@
     <div id="winner-overlay" class="hidden">
       <div class="celebration">
         <h1 id="winner-text"></h1>
-        <div class="crackers">
-          <div class="cracker"></div>
-          <div class="cracker"></div>
-          <div class="cracker"></div>
-          <div class="cracker"></div>
-        </div>
+        <div id="confetti-container"></div>
       </div>
     </div>
     <script>
@@ -169,14 +164,29 @@
             const winner = data[0].name;
             const winnerOverlay = document.getElementById("winner-overlay");
             const winnerText = document.getElementById("winner-text");
+            const confettiContainer =
+              document.getElementById("confetti-container");
 
-            winnerText.textContent = `THE WINNER IS "${winner}"! 🎉`;
+            winnerText.textContent = `The winner is "${winner}"! 🎉`;
             winnerOverlay.classList.remove("hidden");
 
-            // Hide overlay after 30 seconds
+            // Generate confetti
+            for (let i = 0; i < 200; i++) {
+              const confetti = document.createElement("div");
+              confetti.classList.add("confetti");
+              confetti.style.left = Math.random() * 100 + "vw";
+              confetti.style.animationDelay = Math.random() * 3 + "s";
+              confetti.style.background = `hsl(${
+                Math.random() * 360
+              }, 100%, 50%)`;
+              confettiContainer.appendChild(confetti);
+            }
+
+            // Hide overlay after 10 min
             setTimeout(() => {
               winnerOverlay.classList.add("hidden");
-            }, 30000);
+              confettiContainer.innerHTML = ""; // Clear confetti
+            }, 600000);
           }
 
           // Refresh the page after loading data
