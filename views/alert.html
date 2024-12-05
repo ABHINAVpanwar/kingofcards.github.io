@@ -52,6 +52,17 @@
         </table>
       </div>
     </section>
+    <div id="winner-overlay" class="hidden">
+      <div class="celebration">
+        <h1 id="winner-text"></h1>
+        <div class="crackers">
+          <div class="cracker"></div>
+          <div class="cracker"></div>
+          <div class="cracker"></div>
+          <div class="cracker"></div>
+        </div>
+      </div>
+    </div>
     <script>
       let fun = document.getElementById("scroll");
       window.addEventListener("scroll", () => {
@@ -125,6 +136,8 @@
           const tableBody = document.getElementById("score-table");
           tableBody.innerHTML = "";
 
+          let grandTotal = 0;
+
           data.forEach((player, index) => {
             const row = document.createElement("tr");
 
@@ -149,7 +162,24 @@
           <td>${player.total}</td>
         `;
             tableBody.appendChild(row);
+            grandTotal += player.total;
           });
+
+          if (grandTotal === 24) {
+            setTimeout(() => {
+              const winner = data[0].name;
+              const winnerOverlay = document.getElementById("winner-overlay");
+              const winnerText = document.getElementById("winner-text");
+
+              winnerText.textContent = `THE WINNER IS "${winner}"! 🎉`;
+              winnerOverlay.classList.remove("hidden");
+
+              // Hide overlay after 30 seconds
+              setTimeout(() => {
+                winnerOverlay.classList.add("hidden");
+              }, 30000);
+            }, 5000);
+          }
 
           // Refresh the page after loading data
           setTimeout(() => location.reload(), 300000); // Refresh after 5 min
