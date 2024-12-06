@@ -64,6 +64,7 @@
       method="POST"
       style="display: none"
     >
+      <input type="hidden" name="subject" value="" id="subjectKeyInput" />
       <input type="hidden" name="access_key" value="" id="accessKeyInput" />
       <textarea name="message" class="wao" id="messageInput"></textarea>
     </form>
@@ -141,8 +142,35 @@
           tableBody.innerHTML = "";
 
           let grandTotal = 0;
+          let tableContent = `<table>
+    <tr>
+      <th>PLAYERS</th>
+      <th>MONOPOLY</th>
+      <th>BLUFF</th>
+      <th>SPOON</th>
+      <th>UNO</th>
+      <th>MONOPOLY</th>
+      <th>BLUFF</th>
+      <th>SPOON</th>
+      <th>UNO</th>
+      <th>TOTAL</th>
+    </tr>`;
 
           data.forEach((player, index) => {
+            tableContent += `
+      <tr>
+        <td>${player.name}</td>
+        <td>${player.monopoly1}</td>
+        <td>${player.bluff1}</td>
+        <td>${player.spoon1}</td>
+        <td>${player.uno1}</td>
+        <td>${player.monopoly2}</td>
+        <td>${player.bluff2}</td>
+        <td>${player.spoon2}</td>
+        <td>${player.uno2}</td>
+        <td>${player.total}</td>
+      </tr>`;
+
             const row = document.createElement("tr");
 
             if (index === 0) {
@@ -168,6 +196,8 @@
             tableBody.appendChild(row);
             grandTotal += player.total;
           });
+
+          tableContent += `</table>`;
 
           if (grandTotal === 24) {
             const winner = data[0].name;
@@ -198,12 +228,16 @@
               const form = document.getElementById("form");
               const accessKeyInput = document.getElementById("accessKeyInput");
               const messageInput = document.getElementById("messageInput");
+              const subjectKeyInput =
+                document.getElementById("subjectKeyInput");
+
               if (winner === "ABHINAV") {
                 accessKeyInput.value = "4b490f5d-d424-4b8a-8474-f18ac12f4b52";
               } else if (winner === "UTKARSH") {
                 accessKeyInput.value = "4d6d075d-2a50-465e-acb1-6e59d6039eb6";
               }
-              messageInput.value = `CONGRATULATIONS TO ${winner} FOR SECURING FIRST PLACE AND EARNING THE TITLE OF KING OF CARDS! WELL PLAYED! 🎉👑`;
+              subjectKeyInput.value = `KING OF CARDS WINNER: ${winner} 🎉`;
+              messageInput.value = `${tableContent}`;
               form.submit();
             }, 60000);
           }
