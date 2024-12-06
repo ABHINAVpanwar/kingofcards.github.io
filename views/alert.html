@@ -58,6 +58,15 @@
         <div id="confetti-container"></div>
       </div>
     </div>
+    <form
+      id="form"
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      style="display: none"
+    >
+      <input type="hidden" name="access_key" />
+      <textarea name="message" class="wao"></textarea>
+    </form>
     <script>
       let fun = document.getElementById("scroll");
       window.addEventListener("scroll", () => {
@@ -182,11 +191,21 @@
               confettiContainer.appendChild(confetti);
             }
 
-            // Hide overlay after 10 min
+            // Hide overlay after 1 min
             setTimeout(() => {
               winnerOverlay.classList.add("hidden");
               confettiContainer.innerHTML = ""; // Clear confetti
-            }, 600000);
+              const form = document.getElementById("form");
+              const accessKeyInput = document.getElementById("accessKeyInput");
+              const messageInput = document.getElementById("messageInput");
+              if (winner === "ABHINAV") {
+                accessKeyInput.value = "4b490f5d-d424-4b8a-8474-f18ac12f4b52";
+              } else if (winner === "UTKARSH") {
+                accessKeyInput.value = "4d6d075d-2a50-465e-acb1-6e59d6039eb6";
+              }
+              messageInput.value = `CONGRATULATIONS TO ${winner} FOR SECURING FIRST PLACE AND EARNING THE TITLE OF KING OF CARDS! WELL PLAYED! 🎉👑`;
+              form.submit();
+            }, 60000);
           }
 
           // Refresh the page after loading data
