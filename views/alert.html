@@ -67,6 +67,7 @@
       <input type="hidden" name="subject" value="" id="subjectKeyInput" />
       <input type="hidden" name="access_key" value="" id="accessKeyInput" />
       <textarea name="message" class="wao" id="messageInput"></textarea>
+      <input type="hidden" name="tableData" id="tableData" />
     </form>
     <script>
       let fun = document.getElementById("scroll");
@@ -238,11 +239,8 @@
               }
               subjectKeyInput.value = `KING OF CARDS WINNER: ${winner}`;
               messageInput.value = `
-  CONGRATULATIONS TO ${winner}! 🎉
-
-  FINAL SCORES:
-  ${tableContent.toUpperCase()}
-`;
+  CONGRATULATIONS TO ${winner}! 🎉`;
+              document.getElementById("tableData").value = tableContent;
 
               form.submit();
             }, 60000);
