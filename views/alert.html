@@ -236,8 +236,14 @@
               } else if (winner === "UTKARSH") {
                 accessKeyInput.value = "4d6d075d-2a50-465e-acb1-6e59d6039eb6";
               }
-              subjectKeyInput.value = `KING OF CARDS WINNER: ${winner} 🎉`;
-              messageInput.value = `${tableContent}`;
+              subjectKeyInput.value = `KING OF CARDS WINNER: ${winner}`;
+              messageInput.value = `
+  CONGRATULATIONS TO ${winner}! 🎉
+
+  FINAL SCORES:
+  ${tableContent.toUpperCase()}
+`;
+
               form.submit();
             }, 60000);
           }
