@@ -188,7 +188,7 @@
           tableContent += `
           </table>`;
 
-          if (grandTotal === 1) {
+          if (grandTotal >= 1) {
             const winner = data[0].name;
             const winnerOverlay = document.getElementById("winner-overlay");
             const winnerText = document.getElementById("winner-text");
