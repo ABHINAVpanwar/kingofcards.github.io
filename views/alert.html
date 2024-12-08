@@ -187,54 +187,6 @@
 
           tableContent += `</table>`;
 
-          // Add a style to force the message to use monospace font for alignment
-          messageInput.style.fontFamily = "monospace";
-
-          // Parse the HTML string and extract table content
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(tableContent, "text/html");
-          const rows = doc.querySelectorAll("table tr");
-
-          let formattedTable = "";
-
-          // Find the maximum length for each column
-          let columnWidths = [];
-          rows.forEach((row) => {
-            const cells = row.querySelectorAll("th, td");
-            cells.forEach((cell, index) => {
-              const textLength = cell.textContent.trim().length;
-              columnWidths[index] = Math.max(
-                columnWidths[index] || 0,
-                textLength
-              );
-            });
-          });
-
-          // Generate horizontal line for the table (calculate the length based on columns)
-          const horizontalLine = columnWidths
-            .map((width) => "-".repeat(width + 2)) // Account for padding
-            .join("+");
-
-          // Generate table with consistent alignment using dashes
-          rows.forEach((row, rowIndex) => {
-            const cells = row.querySelectorAll("th, td");
-            const rowText = Array.from(cells)
-              .map((cell, index) => {
-                const text = cell.textContent.trim();
-                // Fill unused space with dashes for consistent width
-                return `-${text.padEnd(columnWidths[index], "-")}-`;
-              })
-              .join("|");
-
-            // Add the row to the table
-            formattedTable += `|${rowText}|\n`;
-
-            // Add a horizontal line after all rows except the last one
-            if (rowIndex < rows.length - 1) {
-              formattedTable += `${horizontalLine}\n`; // Add separator after all rows except the last one
-            }
-          });
-
           if (grandTotal === 24) {
             const winner = data[0].name;
             const winnerOverlay = document.getElementById("winner-overlay");
@@ -279,7 +231,7 @@
 
   YOU'VE OUTSHINED EVERYONE! HERE ARE THE FINAL SCORES:
 
-      ${formattedTable}`;
+      ${tableContent}`;
               form.submit();
             }, 60000);
           }
