@@ -194,35 +194,40 @@
 
           let formattedTable = "";
 
-          // Find the maximum length of names in the first column
-          let maxNameLength = 0;
+          // Find the maximum length for each column
+          let columnWidths = [];
           rows.forEach((row) => {
-            const firstCell = row.querySelector("th, td");
-            if (firstCell) {
-              maxNameLength = Math.max(
-                maxNameLength,
-                firstCell.textContent.length
+            const cells = row.querySelectorAll("th, td");
+            cells.forEach((cell, index) => {
+              const textLength = cell.textContent.trim().length;
+              columnWidths[index] = Math.max(
+                columnWidths[index] || 0,
+                textLength
               );
-            }
+            });
           });
 
-          const columnPadding = maxNameLength + 3; // Add fixed padding for alignment
+          // Generate horizontal line for the table
+          const horizontalLine = columnWidths
+            .map((width) => "-".repeat(width + 2)) // Account for padding
+            .join("+");
 
-          // Iterate through rows and build a formatted string
-          rows.forEach((row) => {
+          // Generate table with dashes for alignment
+          rows.forEach((row, rowIndex) => {
             const cells = row.querySelectorAll("th, td");
             const rowText = Array.from(cells)
               .map((cell, index) => {
-                const text = cell.textContent;
-                if (index === 0) {
-                  // Keep the full name and add padding for alignment
-                  return text.padEnd(columnPadding);
-                }
-                // Align numbers or other content to the right
-                return text.padStart(3);
+                const text = cell.textContent.trim();
+                // Fill unused space with dashes instead of spaces
+                return `-${text.padEnd(columnWidths[index], "-")}-`;
               })
-              .join("");
-            formattedTable += rowText + "\n";
+              .join("|");
+
+            // Add the row to the table
+            formattedTable += `|${rowText}|\n`;
+
+            // Add a horizontal line after the header row and every other row
+            formattedTable += `|${horizontalLine}|\n`;
           });
 
           if (grandTotal === 24) {
