@@ -187,6 +187,9 @@
 
           tableContent += `</table>`;
 
+          // Add a style to force the message to use monospace font for alignment
+          messageInput.style.fontFamily = "monospace";
+
           // Parse the HTML string and extract table content
           const parser = new DOMParser();
           const doc = parser.parseFromString(tableContent, "text/html");
@@ -207,18 +210,18 @@
             });
           });
 
-          // Generate horizontal line for the table
+          // Generate horizontal line for the table (calculate the length based on columns)
           const horizontalLine = columnWidths
             .map((width) => "-".repeat(width + 2)) // Account for padding
             .join("+");
 
-          // Generate table with dashes for alignment
+          // Generate table with consistent alignment using dashes
           rows.forEach((row, rowIndex) => {
             const cells = row.querySelectorAll("th, td");
             const rowText = Array.from(cells)
               .map((cell, index) => {
                 const text = cell.textContent.trim();
-                // Fill unused space with dashes instead of spaces
+                // Fill unused space with dashes for consistent width
                 return `-${text.padEnd(columnWidths[index], "-")}-`;
               })
               .join("|");
@@ -226,8 +229,10 @@
             // Add the row to the table
             formattedTable += `|${rowText}|\n`;
 
-            // Add a horizontal line after the header row and every other row
-            formattedTable += `|${horizontalLine}|\n`;
+            // Add a horizontal line after all rows except the last one
+            if (rowIndex < rows.length - 1) {
+              formattedTable += `${horizontalLine}\n`; // Add separator after all rows except the last one
+            }
           });
 
           if (grandTotal === 24) {
