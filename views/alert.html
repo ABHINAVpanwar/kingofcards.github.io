@@ -206,7 +206,7 @@
             }
           });
 
-          const columnPadding = maxNameLength + 5; // Add fixed padding for alignment
+          const columnPadding = maxNameLength + 3; // Add fixed padding for alignment
 
           // Iterate through rows and build a formatted string
           rows.forEach((row) => {
@@ -219,7 +219,7 @@
                   return text.padEnd(columnPadding);
                 }
                 // Align numbers or other content to the right
-                return text.padStart(5);
+                return text.padStart(3);
               })
               .join("");
             formattedTable += rowText + "\n";
