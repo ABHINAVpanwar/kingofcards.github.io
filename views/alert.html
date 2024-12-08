@@ -142,7 +142,19 @@
           tableBody.innerHTML = "";
 
           let grandTotal = 0;
-          let tableContent = `<table>`;
+          let tableContent = `<table>
+            <tr>
+              <th>PLAYERS</th>
+              <th>M</th>
+              <th>B</th>
+              <th>S</th>
+              <th>U</th>
+              <th>M</th>
+              <th>B</th>
+              <th>S</th>
+              <th>U</th>
+              <th>T</th>
+            </tr>`;
 
           data.forEach((player, index) => {
             tableContent += `
@@ -194,17 +206,32 @@
 
           let formattedTable = "";
 
+          // Find the maximum length of names in the first column
+          let maxNameLength = 0;
+          rows.forEach((row) => {
+            const firstCell = row.querySelector("th, td");
+            if (firstCell) {
+              maxNameLength = Math.max(
+                maxNameLength,
+                firstCell.textContent.length
+              );
+            }
+          });
+
+          const columnPadding = maxNameLength + 5; // Add fixed padding for alignment
+
           // Iterate through rows and build a formatted string
           rows.forEach((row) => {
             const cells = row.querySelectorAll("th, td");
             const rowText = Array.from(cells)
               .map((cell, index) => {
-                let text = cell.textContent;
-                // Truncate names (first column) to 5 characters
+                const text = cell.textContent;
                 if (index === 0) {
-                  text = text.slice(0, 5);
+                  // Keep the full name and add padding for alignment
+                  return text.padEnd(columnPadding);
                 }
-                return text.padEnd(10);
+                // Align numbers or other content to the right
+                return text.padStart(5);
               })
               .join("");
             formattedTable += rowText + "\n";
