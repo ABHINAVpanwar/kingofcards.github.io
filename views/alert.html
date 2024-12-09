@@ -188,7 +188,7 @@
           tableContent += `
           </table>`;
 
-          if (grandTotal >= 1) {
+          if (grandTotal === 24) {
             const winner = data[0].name;
             const winnerOverlay = document.getElementById("winner-overlay");
             const winnerText = document.getElementById("winner-text");
@@ -230,7 +230,7 @@
               messageInput.value = `
 CONGRATULATIONS TO "${winner}"
 
-亗亗亗亗亗亗亗亗.亗亗亗亗亗亗亗亗
+亗亗亗亗亗亗亗亗亗亗亗亗亗亗亗亗
 ⁣⣿⣿⡿⠋⠄⡀⣿⣿⣿⣿⣿⣿⣿⠿⠛⠋⣉⣉⣉⡉⠙⠻
 ⣿⣿⣇⠔⠈⣿⣿⣿⣿⡿⠛⢉⣤⣶⣾⣿⣿⣿⣿⣿⣿⣦
 ⣿⠃⠄⢠⣾⣿⣿⠟⢁⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
@@ -254,7 +254,7 @@ FINAL SCORE FOR THE MATCH IS -
 
       ${tableContent}`;
               form.submit();
-            }, 6000);
+            }, 60000);
           }
 
           // Refresh the page after loading data
