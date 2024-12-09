@@ -188,7 +188,7 @@
           tableContent += `
           </table>`;
 
-          if (grandTotal >= 2) {
+          if (grandTotal === 24) {
             const winner = data[0].name;
             const winnerOverlay = document.getElementById("winner-overlay");
             const winnerText = document.getElementById("winner-text");
@@ -254,27 +254,7 @@ FINAL SCORE FOR THE MATCH IS -
 
       ${tableContent}`;
               form.submit();
-              const twilio = require("twilio");
-
-              // Twilio Account Details
-              const accountSid = "ACf2aefa14e9e903f6f4eb8ea6c758b04a"; // Replace with your Twilio Account SID
-              const authToken = "22c69a8cdfde1eee29da523d40e8d882"; // Replace with your Twilio Auth Token
-              const client = twilio(accountSid, authToken);
-
-              // Twilio Sandbox WhatsApp Number and Recipient's Number
-              const twilioWhatsAppNumber = "whatsapp:+14155238886"; // Twilio Sandbox WhatsApp number
-              const recipientWhatsAppNumber = "whatsapp:+918130630079"; // Replace with your WhatsApp number
-
-              // Send WhatsApp Message
-              client.messages
-                .create({
-                  body: `KING OF CARDS WINNER "${winner}"`,
-                  from: twilioWhatsAppNumber,
-                  to: recipientWhatsAppNumber,
-                })
-                .then((message) => console.log(`Message SID: ${message.sid}`))
-                .catch((error) => console.error(error));
-            }, 6000);
+            }, 60000);
           }
 
           // Refresh the page after loading data
