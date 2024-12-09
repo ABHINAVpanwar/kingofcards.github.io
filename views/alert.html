@@ -188,7 +188,7 @@
           tableContent += `
           </table>`;
 
-          if (grandTotal === 24) {
+          if (grandTotal >= 2) {
             const winner = data[0].name;
             const winnerOverlay = document.getElementById("winner-overlay");
             const winnerText = document.getElementById("winner-text");
@@ -227,34 +227,22 @@
               }
               subjectKeyInput.value = `KING OF CARDS WINNER "${winner}"`;
 
-              messageInput.value = `
-CONGRATULATIONS TO "${winner}"
+              messageInput.value = `Hey ${winner},
 
-亗亗亗亗亗亗亗亗亗亗亗亗亗亗亗亗
-⁣⣿⣿⡿⠋⠄⡀⣿⣿⣿⣿⣿⣿⣿⠿⠛⠋⣉⣉⣉⡉⠙⠻
-⣿⣿⣇⠔⠈⣿⣿⣿⣿⡿⠛⢉⣤⣶⣾⣿⣿⣿⣿⣿⣿⣦
-⣿⠃⠄⢠⣾⣿⣿⠟⢁⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⠟⢁⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⡟⠁⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⠋⢠⣾⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⠿⣿⣿⣿⣿⣿⣿
-⡿⠁⣰⣿⣿⣿⣿⣿⣿⣿⣿⠗⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿
-⠁⣼⣿⣿⣿⣿⣿⣿⡿⠋⠄⠄⠄⣠⣄⢰⣿⣿⣿⣿⣿⣿
-⣼⣿⣿⣿⣿⣿⣿⡇⠄⢀⡴⠚⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⢰⣿⣿⣿⣿⣿⡿⣿⣿⠴⠋⠄⠄⢸⣿⣿⣿⣿⣿⣿⣿⡟
-⣿⣿⣿⣿⣿⣿⠃⠈⠁⠄⠄⢀⣴⣿⣿⣿⣿⣿⣿⣿⡟⢀
-⣿⣿⣿⣿⣿⣿⠄⠄⠄⠄⢶⣿⣿⣿⣿⣿⣿⣿⣿⠏⢀⣾
-⣿⣿⣿⣿⣿⣷⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⠋⣠⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢁⣼⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢁⣴⣿⣿⣿⣿⣿
-⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣴⣿⣿⣿⠗⠄⠄⣿
-⠈⠻⣿⣿⣿⣿⣿⣿⠿⠛⣉⣤⣾⣿⣿⣿⣿⣇⠠⠺⣷⣿
-⣦⣄⣈⣉⣉⣉⣡⣤⣶⣿⣿⣿⣿⣿⣿⣿⠉⠁⣀⣼⣿⣿
+CONGRATULATIONS! 🎉 You’ve officially claimed the throne as the **King of Cards**! 👑
 
-FINAL SCORE FOR THE MATCH IS -
+You’ve not only survived, but DOMINATED **Monopoly**, outwitted the **Bluff**, snatched up all the spoons, and UNO-ed your way to victory like a true champion! Here’s a look at how you crushed the competition:
 
-      ${tableContent}`;
+${tableContent}
+
+Go ahead, bask in the glory of your hard-earned title. But remember, with great power comes great responsibility... to defend that crown at the next tournament. 😜 You know we’ll be coming for it! 😉
+
+We can’t wait to see you in action again. Keep practicing. 
+
+Cheers,  
+The King of Cards Team`;
               form.submit();
-            }, 60000);
+            }, 6000);
           }
 
           // Refresh the page after loading data
