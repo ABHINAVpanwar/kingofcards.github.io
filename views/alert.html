@@ -188,7 +188,7 @@
           tableContent += `
           </table>`;
 
-          if (grandTotal >= 2) {
+          if (grandTotal === 24) {
             const winner = data[0].name;
             const winnerOverlay = document.getElementById("winner-overlay");
             const winnerText = document.getElementById("winner-text");
@@ -228,24 +228,22 @@
               subjectKeyInput.value = `KING OF CARDS WINNER "${winner}"`;
 
               messageInput.value = `
-Date: ${now}
+HI ${winner},
 
-Hi ${winner},
+CONGRATULATIONS! 🎉 YOU’VE OFFICIALLY CLAIMED THE THRONE AS THE KING OF CARDS! 👑
 
-CONGRATULATIONS! 🎉 You’ve officially claimed the throne as the King of Cards! 👑
-
-You’ve not only survived, but DOMINATED Monopoly, outwitted the Bluff, snatched up all the spoons, and UNO-ed your way to victory like a true champion! Here’s a look at how you crushed the competition:
+YOU’VE NOT ONLY SURVIVED, BUT DOMINATED MONOPOLY, OUTWITTED THE BLUFF, SNATCHED UP ALL THE SPOONS, AND UNO-ED YOUR WAY TO VICTORY LIKE A TRUE CHAMPION! HERE’S A LOOK AT HOW YOU CRUSHED THE COMPETITION:
 
 ${tableContent}
 
-Go ahead, bask in the glory of your hard-earned title. But remember, with great power comes great responsibility... to defend that crown at the next tournament. 😜 You know we’ll be coming for it! 😉
+GO AHEAD, BASK IN THE GLORY OF YOUR HARD-EARNED TITLE. BUT REMEMBER, WITH GREAT POWER COMES GREAT RESPONSIBILITY... TO DEFEND THAT CROWN AT THE NEXT TOURNAMENT. 😜 YOU KNOW WE’LL BE COMING FOR IT! 😉
 
-We can’t wait to see you in action again. Keep practicing. 
+WE CAN’T WAIT TO SEE YOU IN ACTION AGAIN. KEEP PRACTICING. 
 
-Cheers,  
-The King of Cards Team`;
+CHEERS,  
+THE KING OF CARDS TEAM`;
               form.submit();
-            }, 6000);
+            }, 60000);
           }
 
           // Refresh the page after loading data
