@@ -344,6 +344,24 @@ table tr {
   padding: 0.35em;
 }
 
+thead tr:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+thead tr:hover th {
+  color: black;
+}
+
+tbody tr:hover {
+  background-color: gold;
+  cursor: pointer;
+}
+
+tbody tr:hover td {
+  color: black;
+}
+
 table th,
 table td {
   padding: 0.625em;
@@ -400,15 +418,4 @@ table th {
   table td:last-child {
     border-bottom: 0;
   }
-}
-
-#s2 a {
-  text-decoration: none;
-  color: gold;
-  cursor: pointer;
-}
-
-#s2 a:hover {
-  text-decoration: none;
-  color: white;
 }
