@@ -9,7 +9,9 @@
   <body>
     <nav>
       <ul>
-        <li><a href="../index.html">Home</a></li>
+        <li>
+          <a href="../index.html"><img src="../static/IMG/Home.png" /></a>
+        </li>
       </ul>
     </nav>
     <section class="protect">
@@ -23,14 +25,17 @@
       async function hashPassword(password) {
         const encoder = new TextEncoder();
         const data = encoder.encode(password);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
         const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        return hashArray
+          .map((byte) => byte.toString(16).padStart(2, "0"))
+          .join("");
       }
 
-      const encryptedURL = 'Z2FsbGVyeS5odG1s';
-      
-      const storedPasswordHash = 'df39e8fbeff7aa1bc95ec48b0bf05b23dd96b03e880a52a308f8b1286b277076'; 
+      const encryptedURL = "Z2FsbGVyeS5odG1s";
+
+      const storedPasswordHash =
+        "df39e8fbeff7aa1bc95ec48b0bf05b23dd96b03e880a52a308f8b1286b277076";
 
       var form = document.getElementById("password-form");
       form.addEventListener("submit", async function (event) {
