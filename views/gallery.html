@@ -54,14 +54,19 @@
   </body>
   <script>
     let slideIndex = 1;
+    let slideTimer;
+
     showSlides(slideIndex);
+    startAutoSlide();
 
     function plusSlides(n) {
       showSlides((slideIndex += n));
+      resetAutoSlide();
     }
 
     function currentSlide(n) {
       showSlides((slideIndex = n));
+      resetAutoSlide();
     }
 
     function showSlides(n) {
@@ -77,6 +82,17 @@
         slides[i].style.display = "none";
       }
       slides[slideIndex - 1].style.display = "block";
+    }
+
+    function startAutoSlide() {
+      slideTimer = setInterval(() => {
+        plusSlides(1);
+      }, 7000); // Change slide every 7 seconds
+    }
+
+    function resetAutoSlide() {
+      clearInterval(slideTimer);
+      startAutoSlide();
     }
   </script>
 </html>
