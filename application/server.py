@@ -6,7 +6,8 @@ import os
 app = Flask(__name__)
 CORS(app, resources={
     r"/scores": {"origins": "https://kingofcards.netlify.app"},
-    r"/get_messages": {"origins": "https://kingofcards.netlify.app"}
+    r"/get_messages": {"origins": "https://kingofcards.netlify.app"},
+    r"/send_message": {"origins": "https://kingofcards.netlify.app"}
 })
 
 # Define the path for the scores file
