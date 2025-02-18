@@ -146,36 +146,12 @@
         }
       }
 
-      // Function to update the icon (e.g., change color or add a badge)
       function updateMessageIcon(newMessage) {
-        const icon = document.getElementById("chat-icon"); // Replace with your icon's ID
-
+        const icon = document.getElementById("chat-icon");
         if (newMessage) {
-          // Add styles for the new message
-          icon.style.color = "red"; // Change icon color
-          icon.style.fontWeight = "bold"; // Make icon bold
-          icon.style.position = "relative";
-
-          // Add a notification badge
-          const badge = document.createElement("span");
-          badge.textContent = "•";
-          badge.style.position = "absolute";
-          badge.style.top = "0";
-          badge.style.right = "0";
-          badge.style.color = "red";
-          badge.style.fontSize = "16px";
-
-          icon.appendChild(badge);
+          icon.style.background = "red";
         } else {
-          // Reset the icon styles if no new message
-          icon.style.color = "";
-          icon.style.fontWeight = "";
-
-          // Remove notification badge if present
-          const badge = icon.querySelector("span");
-          if (badge) {
-            badge.remove();
-          }
+          icon.style.background = "gold";
         }
       }
 
