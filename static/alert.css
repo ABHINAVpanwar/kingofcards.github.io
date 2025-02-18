@@ -84,6 +84,7 @@ input[type="checkbox"] {
   }
 
   nav ul {
+    z-index: 9999;
     position: absolute;
     top: 80px;
     left: -100%;
