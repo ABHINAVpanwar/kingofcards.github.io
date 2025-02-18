@@ -104,5 +104,23 @@ def reset_scores():
     scores = load_scores()  # Reload scores to reflect reset values
     return jsonify({"status": "success", "message": "Scores reset to zero."})
 
+messages = []  # Define the messages list globally
+
+@app.route('/send_message', methods=['POST'])
+def send_message():
+    data = request.json
+    sender = data.get('sender')
+    message = data.get('message')
+
+    if sender and message:
+        messages.append({'sender': sender, 'message': message})
+        return jsonify({'status': 'Message received', 'message': data})
+    
+    return jsonify({'status': 'error', 'message': 'Invalid data'}), 400
+
+@app.route('/get_messages', methods=['GET'])
+def get_messages():
+    return jsonify(messages)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
