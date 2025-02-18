@@ -146,17 +146,25 @@
         }
       }
 
+      function changeIconColorToGold() {
+        const icon = document.getElementById("chat-icon");
+        icon.style.background = "gold";
+      }
+
       function updateMessageIcon(newMessage) {
         const icon = document.getElementById("chat-icon");
         if (newMessage) {
           icon.style.background = "red";
-        } else {
-          icon.style.background = "gold";
         }
       }
 
       setInterval(loadMessages, 2000);
       loadMessages();
+
+      // Add click event listener to change icon color to gold when clicked
+      document
+        .getElementById("chat-icon")
+        .addEventListener("click", changeIconColorToGold);
     </script>
     <script>
       let fun = document.getElementById("scroll");
