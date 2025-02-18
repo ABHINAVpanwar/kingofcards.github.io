@@ -484,17 +484,16 @@ table th {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
   #chat-container {
-    bottom: 80px;
-    right: 20px;
-    width: 300px;
-    height: 300px;
+    bottom: 10vh;
+    width: 90vw;
+    height: 70vh;
     border-radius: 10px;
   }
   #chat-header {
     padding: 10px;
   }
   #messages {
-    height: 250px;
+    height: 60vh;
     padding: 10px;
   }
   .message {
