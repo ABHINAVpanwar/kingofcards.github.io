@@ -117,22 +117,22 @@
         const serverPassword = await fetchPassword();
         if (!serverPassword) return;
         document.getElementById("loginDiv").style.display = "flex";
+      }
 
-        function validateLogin() {
-          username = document.getElementById("username").value;
-          const enteredPassword = document.getElementById("password").value;
+      function validateLogin() {
+        username = document.getElementById("username").value;
+        const enteredPassword = document.getElementById("password").value;
 
-          fetchPassword().then((serverPassword) => {
-            if (enteredPassword === serverPassword) {
-              isAuthenticated = true;
-              alert("LOGIN SUCCESSFUL");
-              document.getElementById("loginDiv").style.display = "none";
-              document.getElementById("chat-container").style.display = "flex";
-            } else {
-              alert("INVALID PASSWORD");
-            }
-          });
-        }
+        fetchPassword().then((serverPassword) => {
+          if (enteredPassword === serverPassword) {
+            isAuthenticated = true;
+            alert("LOGIN SUCCESSFUL");
+            document.getElementById("loginDiv").style.display = "none";
+            document.getElementById("chat-container").style.display = "flex";
+          } else {
+            alert("INVALID PASSWORD");
+          }
+        });
       }
 
       function toggleChat() {
