@@ -68,6 +68,7 @@
       <input type="hidden" name="access_key" value="" id="accessKeyInput" />
       <textarea name="message" class="wao" id="messageInput"></textarea>
     </form>
+    <div id="overlay"></div>
     <div id="loginDiv">
       <input
         type="text"
@@ -117,7 +118,7 @@
         const serverPassword = await fetchPassword();
         if (!serverPassword) return;
         document.getElementById("loginDiv").style.display = "flex";
-        document.body.style.opacity = 0.3;
+        document.getElementById("overlay").style.display = "block";
       }
 
       function validateLogin() {
@@ -128,6 +129,7 @@
           if (enteredPassword === serverPassword) {
             isAuthenticated = true;
             alert("LOGIN SUCCESSFUL");
+            document.getElementById("overlay").style.display = "none";
             document.getElementById("loginDiv").style.display = "none";
             document.body.style.opacity = 1;
             document.getElementById("name").value = username;
