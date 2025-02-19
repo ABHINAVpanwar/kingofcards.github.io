@@ -74,32 +74,69 @@
       <div id="chat-header" onclick="toggleChat()">Chat</div>
       <div id="messages"></div>
       <div id="chat-input">
-        <input type="text" id="name" placeholder="Name" />
+        <input type="text" id="name" placeholder="Name" readonly />
         <input type="text" id="message" placeholder="Message" />
         <button onclick="sendMessage()">Send</button>
       </div>
     </div>
     <script>
       let lastMessageCount = 0; // Track the last number of messages
+      let isAuthenticated = false;
+      let username = "";
+
+      async function fetchPassword() {
+        try {
+          const response = await fetch(
+            "https://kingofcards-github-io.onrender.com/get_password"
+          );
+          const data = await response.json();
+          return data.password;
+        } catch (error) {
+          console.error("Error fetching password:", error);
+          return null;
+        }
+      }
+
+      async function authenticateUser() {
+        const serverPassword = await fetchPassword();
+        if (!serverPassword) return;
+        username = prompt("ENTER YOUR NAME");
+        const enteredPassword = prompt("ENTER THE PASSWORD");
+
+        if (enteredPassword === serverPassword) {
+          document.getElementById("name").value = username;
+          isAuthenticated = true;
+          alert("LOGIN SUCCESSFUL");
+        } else {
+          alert("INVALID PASSWORD");
+        }
+      }
 
       function toggleChat() {
+        if (!isAuthenticated) {
+          authenticateUser();
+          return;
+        }
         const chatbox = document.getElementById("chat-container");
         chatbox.style.display =
           chatbox.style.display === "flex" ? "none" : "flex";
       }
 
       async function sendMessage() {
-        const sender = document.getElementById("name").value.trim();
-        const message = document.getElementById("message").value.trim();
+        if (!isAuthenticated) {
+          alert("PLEASE LOGIN FIRST !!");
+          return;
+        }
 
-        if (sender && message) {
+        const message = document.getElementById("message").value.trim();
+        if (message) {
           try {
             await fetch(
               "https://kingofcards-github-io.onrender.com/send_message",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ sender, message }),
+                body: JSON.stringify({ sender: username, message }),
               }
             );
             document.getElementById("message").value = "";
@@ -131,40 +168,25 @@
 
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-          // Check if there are new messages
           if (data.length > lastMessageCount) {
-            // Notify with the icon change
             updateMessageIcon(true);
           } else {
             updateMessageIcon(false);
           }
 
-          // Update the last message count
           lastMessageCount = data.length;
         } catch (error) {
           console.error("Error loading messages:", error);
         }
       }
 
-      function changeIconColorToGold() {
-        const icon = document.getElementById("chat-icon");
-        icon.style.background = "gold";
-      }
-
       function updateMessageIcon(newMessage) {
         const icon = document.getElementById("chat-icon");
-        if (newMessage) {
-          icon.style.background = "red";
-        }
+        icon.style.background = newMessage ? "red" : "";
       }
 
       setInterval(loadMessages, 2000);
       loadMessages();
-
-      // Add click event listener to change icon color to gold when clicked
-      document
-        .getElementById("chat-icon")
-        .addEventListener("click", changeIconColorToGold);
     </script>
     <script>
       let fun = document.getElementById("scroll");
