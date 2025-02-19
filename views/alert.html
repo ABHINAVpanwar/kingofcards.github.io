@@ -117,6 +117,7 @@
         const serverPassword = await fetchPassword();
         if (!serverPassword) return;
         document.getElementById("loginDiv").style.display = "flex";
+        document.body.style.opacity = 0.7;
       }
 
       function validateLogin() {
@@ -128,6 +129,8 @@
             isAuthenticated = true;
             alert("LOGIN SUCCESSFUL");
             document.getElementById("loginDiv").style.display = "none";
+            document.body.style.opacity = 1;
+            document.getElementById("name").value = username;
             document.getElementById("chat-container").style.display = "flex";
           } else {
             alert("INVALID PASSWORD");
