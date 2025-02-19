@@ -128,10 +128,8 @@
         fetchPassword().then((serverPassword) => {
           if (enteredPassword === serverPassword) {
             isAuthenticated = true;
-            alert("LOGIN SUCCESSFUL");
             document.getElementById("overlay").style.display = "none";
             document.getElementById("loginDiv").style.display = "none";
-            document.body.style.opacity = 1;
             document.getElementById("name").value = username;
             document.getElementById("chat-container").style.display = "flex";
           } else {
