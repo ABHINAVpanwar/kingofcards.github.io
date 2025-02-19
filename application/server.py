@@ -7,7 +7,8 @@ app = Flask(__name__)
 CORS(app, resources={
     r"/scores": {"origins": "https://kingofcards.netlify.app"},
     r"/get_messages": {"origins": "https://kingofcards.netlify.app"},
-    r"/send_message": {"origins": "https://kingofcards.netlify.app"}
+    r"/send_message": {"origins": "https://kingofcards.netlify.app"},
+    r"/get_password": {"origins": "https://kingofcards.netlify.app"}
 })
 
 # Define the path for the scores file
@@ -125,6 +126,12 @@ def send_message():
 @app.route('/get_messages', methods=['GET'])
 def get_messages():
     return jsonify(messages)
+
+PASSWORD = "jhulaagangg"  # Server-stored password
+
+@app.route('/get_password', methods=['GET'])
+def get_password():
+    return jsonify({"password": PASSWORD})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
