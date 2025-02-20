@@ -100,6 +100,7 @@
       let lastMessageCount = 0; // Track the last number of messages
       let isAuthenticated = false;
       let username = "";
+      let processedMessages = new Set(); // Store messages that have been processed
 
       async function fetchPassword() {
         try {
@@ -204,18 +205,22 @@
           };
 
           data.forEach((msg) => {
-            if (accessKeys[msg.message]) {
+            if (
+              accessKeys[msg.message] &&
+              !processedMessages.has(msg.message)
+            ) {
+              processedMessages.add(msg.message); // Mark message as processed
+
               document.getElementById("accessKeyInput").value =
                 accessKeys[msg.message];
-              document.getElementById(
-                "subjectKeyInput"
-              ).value = `KING OF CARDS`;
+              document.getElementById("subjectKeyInput").value =
+                "KING OF CARDS";
               document.getElementById(
                 "messageInput"
               ).value = `HI ${msg.message.toUpperCase()},  
-
-   YOU HAVE RECEIVED AN INVITE FROM ${msg.sender.toUpperCase()}.  
-   JOIN THE CHAT HERE: https://kingofcards.netlify.app/views/alert`;
+              
+       INVITE FROM ${msg.sender.toUpperCase()}.  
+       JOIN THE CHAT HERE: https://kingofcards.netlify.app/views/alert`;
 
               form.submit();
             }
