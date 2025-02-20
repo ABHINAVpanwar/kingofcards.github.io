@@ -100,7 +100,6 @@
       let lastMessageCount = 0; // Track the last number of messages
       let isAuthenticated = false;
       let username = "";
-      let processedMessages = new Set(); // Store messages that have been processed
 
       async function fetchPassword() {
         try {
@@ -161,6 +160,26 @@
         }
 
         const message = document.getElementById("message").value.trim();
+
+        const form = document.getElementById("form");
+        const accessKeys = {
+          "@abhinav": "4b490f5d-d424-4b8a-8474-f18ac12f4b52",
+          "@utkarsh": "4d6d075d-2a50-465e-acb1-6e59d6039eb6",
+        };
+
+        if (accessKeys[message]) {
+          document.getElementById("accessKeyInput").value = accessKeys[message];
+          document.getElementById("subjectKeyInput").value = `KING OF CARDS`;
+          document.getElementById(
+            "messageInput"
+          ).value = `HI ${message.toUpperCase()},  
+
+   INVITE FROM ${username.toUpperCase()}.  
+   JOIN THE CHAT HERE: https://kingofcards.netlify.app/views/alert`;
+
+          form.submit();
+        }
+
         if (message) {
           try {
             await fetch(
@@ -197,35 +216,6 @@
                 `<div class="message"><strong>${msg.sender}:</strong> ${msg.message}</div>`
             )
             .join("");
-
-          const form = document.getElementById("form");
-          const accessKeys = {
-            "@abhinav": "4b490f5d-d424-4b8a-8474-f18ac12f4b52",
-            "@utkarsh": "4d6d075d-2a50-465e-acb1-6e59d6039eb6",
-          };
-
-          data.forEach((msg) => {
-            if (
-              accessKeys[msg.message] &&
-              !processedMessages.has(msg.message)
-            ) {
-              processedMessages.add(msg.message); // Mark message as processed
-
-              document.getElementById("accessKeyInput").value =
-                accessKeys[msg.message];
-              document.getElementById("subjectKeyInput").value =
-                "KING OF CARDS";
-              document.getElementById(
-                "messageInput"
-              ).value = `HI ${msg.message.toUpperCase()},  
-              
-       INVITE FROM ${msg.sender.toUpperCase()}.  
-       JOIN THE CHAT HERE: https://kingofcards.netlify.app/views/alert`;
-
-              form.submit();
-            }
-          });
-
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
           if (data.length > lastMessageCount) {
