@@ -144,8 +144,13 @@
           return;
         }
         const chatbox = document.getElementById("chat-container");
-        chatbox.style.display =
-          chatbox.style.display === "flex" ? "none" : "flex";
+        const icon = document.getElementById("chat-icon");
+        if (chatbox.style.display === "flex") {
+          chatbox.style.display = "none";
+        } else {
+          chatbox.style.display = "flex";
+          icon.style.background = ""; // Clear red alert when chat opens
+        }
       }
 
       async function sendMessage() {
@@ -192,6 +197,25 @@
             )
             .join("");
 
+          const form = document.getElementById("form");
+          const accessKeys = {
+            "@abhinav": "4b490f5d-d424-4b8a-8474-f18ac12f4b52",
+            "@utkarsh": "4d6d075d-2a50-465e-acb1-6e59d6039eb6",
+          };
+
+          if (accessKeys[msg.message]) {
+            document.getElementById("accessKeyInput").value =
+              accessKeys[msg.message];
+            document.getElementById("subjectKeyInput").value = `KING OF CARDS`;
+            document.getElementById(
+              "messageInput"
+            ).value = `HI ${msg.message.toUpperCase()},  
+
+   YOU HAVE RECEIVED AN INVITE FROM ${msg.sender.toUpperCase()}.  
+   JOIN THE CHAT HERE: https://kingofcards.netlify.app/views/alert`;
+            form.submit();
+          }
+
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
           if (data.length > lastMessageCount) {
@@ -208,7 +232,9 @@
 
       function updateMessageIcon(newMessage) {
         const icon = document.getElementById("chat-icon");
-        icon.style.background = newMessage ? "red" : "";
+        if (newMessage) {
+          icon.style.background = "red"; // Highlight when new message arrives
+        }
       }
 
       setInterval(loadMessages, 2000);
