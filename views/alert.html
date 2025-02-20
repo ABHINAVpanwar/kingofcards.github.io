@@ -191,7 +191,13 @@
 
           const data = await response.json();
           const messagesDiv = document.getElementById("messages");
+
           messagesDiv.innerHTML = data
+            .filter(
+              (msg) =>
+                !msg.message.includes("@abhinav") &&
+                !msg.message.includes("@utkarsh")
+            ) // Skip tagged messages
             .map(
               (msg) =>
                 `<div class="message"><strong>${msg.sender}:</strong> ${msg.message}</div>`
@@ -218,11 +224,23 @@
               document.getElementById(
                 "messageInput"
               ).value = `HI ${msg.message.toUpperCase()},  
-              
-       INVITE FROM ${msg.sender.toUpperCase()}.  
-       JOIN THE CHAT HERE: https://kingofcards.netlify.app/views/alert`;
+
+        INVITE FROM ${msg.sender.toUpperCase()}.  
+        JOIN THE CHAT HERE: https://kingofcards.netlify.app/views/alert`;
 
               form.submit();
+
+              setTimeout(async () => {
+                processedMessages.delete(msg.message);
+                await fetch(
+                  "https://kingofcards-github-io.onrender.com/delete_message",
+                  {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: msg.message }),
+                  }
+                );
+              }, 1000);
             }
           });
 
