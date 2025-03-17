@@ -241,6 +241,9 @@
       function updateMessageIcon(newMessage) {
         const icon = document.getElementById("chat-icon");
         if (newMessage) {
+          // Play notification sound
+          const notificationSound = new Audio("../static/Song/Notification.mp3"); // Replace with your actual sound file
+          notificationSound.play();
           icon.style.background = "red"; // Highlight when new message arrives
         }
       }
