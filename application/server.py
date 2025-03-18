@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
+from datetime import datetime
 from models import db, Player  # Import db and Player from models.py
 import os
 
@@ -127,7 +128,8 @@ def send_message():
     message = data.get('message')
 
     if sender and message:
-        messages.append({'sender': sender, 'message': message})
+        current_time = datetime.now().strftime("%I:%M %p")
+        messages.append({'sender': sender, 'message': message, 'time': current_time})
         return jsonify({'status': 'Message received', 'message': data})
     
     return jsonify({'status': 'error', 'message': 'Invalid data'}), 400
