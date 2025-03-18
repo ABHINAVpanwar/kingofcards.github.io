@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
-import json
+from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
@@ -11,102 +11,111 @@ CORS(app, resources={
     r"/get_password": {"origins": "https://kingofcards.netlify.app"}
 })
 
-# Define the path for the scores file
-scores_file = 'application/scores.txt'
+# Configure the database
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///scores.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
-# Load scores from file or initialize with default data
-def load_scores():
-    if os.path.exists(scores_file):
-        with open(scores_file, 'r') as f:
-            return json.load(f)
-    else:
-        # Sample data for players' scores
-        return [
-            {"name": "ABHINAV", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-            {"name": "ABHISHEK", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-            {"name": "AKHIL", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-            {"name": "SAHIL", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-            {"name": "SHRUTI", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-            {"name": "UTKARSH", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-        ]
+class Player(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    monopoly1 = db.Column(db.Integer, default=0)
+    bluff1 = db.Column(db.Integer, default=0)
+    spoon1 = db.Column(db.Integer, default=0)
+    uno1 = db.Column(db.Integer, default=0)
+    monopoly2 = db.Column(db.Integer, default=0)
+    bluff2 = db.Column(db.Integer, default=0)
+    spoon2 = db.Column(db.Integer, default=0)
+    uno2 = db.Column(db.Integer, default=0)
+    total = db.Column(db.Integer, default=0)
 
-# Save scores to file
-def save_scores():
-    with open(scores_file, 'w') as f:
-        json.dump(scores, f)
+# Create the database tables
+with app.app_context():
+    db.create_all()
 
-# Load initial scores
-scores = load_scores()
+# Sample data for initializing the database
+def initialize_database():
+    sample_players = [
+        {"name": "ABHINAV", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+        {"name": "ABHISHEK", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+        {"name": "AKHIL", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+        {"name": "SAHIL", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+        {"name": "SHRUTI", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+        {"name": "UTKARSH", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+    ]
+    for player_data in sample_players:
+        player = Player.query.filter_by(name=player_data['name']).first()
+        if not player:
+            new_player = Player(**player_data)
+            db.session.add(new_player)
+    db.session.commit()
+
+# Initialize the database with sample data
+initialize_database()
 
 # API route to provide scores
 @app.route('/scores', methods=['GET'])
 def get_scores():
+    players = Player.query.all()
     filtered_scores = []
-    for player in scores:
-        # Calculate total score for each player
-        player['total'] = (
-            player['monopoly1'] + player['bluff1'] + player['spoon1'] + player['uno1'] +
-            player['monopoly2'] + player['bluff2'] + player['spoon2'] + player['uno2']
+    for player in players:
+        player.total = (
+            player.monopoly1 + player.bluff1 + player.spoon1 + player.uno1 +
+            player.monopoly2 + player.bluff2 + player.spoon2 + player.uno2
         )
-        # Add player to the filtered list if their total score is not zero
-        if player['total'] > 0:
-            filtered_scores.append(player)
-    
+        if player.total > 0:
+            filtered_scores.append({
+                "name": player.name,
+                "monopoly1": player.monopoly1,
+                "bluff1": player.bluff1,
+                "spoon1": player.spoon1,
+                "uno1": player.uno1,
+                "monopoly2": player.monopoly2,
+                "bluff2": player.bluff2,
+                "spoon2": player.spoon2,
+                "uno2": player.uno2,
+                "total": player.total
+            })
     return jsonify(filtered_scores)
 
 # Management page route
 @app.route('/', methods=['GET', 'POST'])
 def manage_scores():
     if request.method == 'POST':
-        for player in scores:
-            if player['name'] == request.form['name']:
-                # Update only the specific scores from the form data if they are greater than zero
-                if int(request.form['monopoly1']) > 0:
-                    player['monopoly1'] = int(request.form['monopoly1'])
-                if int(request.form['bluff1']) > 0:
-                    player['bluff1'] = int(request.form['bluff1'])
-                if int(request.form['spoon1']) > 0:
-                    player['spoon1'] = int(request.form['spoon1'])
-                if int(request.form['uno1']) > 0:
-                    player['uno1'] = int(request.form['uno1'])
-                if int(request.form['monopoly2']) > 0:
-                    player['monopoly2'] = int(request.form['monopoly2'])
-                if int(request.form['bluff2']) > 0:
-                    player['bluff2'] = int(request.form['bluff2'])
-                if int(request.form['spoon2']) > 0:
-                    player['spoon2'] = int(request.form['spoon2'])
-                if int(request.form['uno2']) > 0:
-                    player['uno2'] = int(request.form['uno2'])
-                
-                # Save updated scores to file
-                save_scores()
-                break
-
-        return render_template('manage.html', scores=scores)
-
-    return render_template('manage.html', scores=scores)
+        player = Player.query.filter_by(name=request.form['name']).first()
+        if player:
+            player.monopoly1 = int(request.form['monopoly1'])
+            player.bluff1 = int(request.form['bluff1'])
+            player.spoon1 = int(request.form['spoon1'])
+            player.uno1 = int(request.form['uno1'])
+            player.monopoly2 = int(request.form['monopoly2'])
+            player.bluff2 = int(request.form['bluff2'])
+            player.spoon2 = int(request.form['spoon2'])
+            player.uno2 = int(request.form['uno2'])
+            db.session.commit()
+        return render_template('manage.html', scores=Player.query.all())
+    return render_template('manage.html', scores=Player.query.all())
 
 @app.route('/reset', methods=['POST'])
 def reset_scores():
-    global scores
-    for player in scores:
-        player['monopoly1'] = 0
-        player['bluff1'] = 0
-        player['spoon1'] = 0
-        player['uno1'] = 0
-        player['monopoly2'] = 0
-        player['bluff2'] = 0
-        player['spoon2'] = 0
-        player['uno2'] = 0
-        player['total'] = 0
-    save_scores()
-    scores = load_scores()  # Reload scores to reflect reset values
+    players = Player.query.all()
+    for player in players:
+        player.monopoly1 = 0
+        player.bluff1 = 0
+        player.spoon1 = 0
+        player.uno1 = 0
+        player.monopoly2 = 0
+        player.bluff2 = 0
+        player.spoon2 = 0
+        player.uno2 = 0
+        player.total = 0
+    db.session.commit()
     return jsonify({"status": "success", "message": "Scores reset to zero."})
 
 messages = []  # Define the messages list globally
