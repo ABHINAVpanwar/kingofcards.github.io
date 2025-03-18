@@ -221,7 +221,7 @@
           messagesDiv.innerHTML = data
             .map(
               (msg) =>
-                `<div class="message"><strong>${msg.sender}:</strong> ${msg.message} <span style="color: #888;">(${msg.time})</span></div>`
+                `<div class="message"><strong>${msg.sender}:</strong> ${msg.message} <span style="color: #888;">${msg.time}</span></div>`
             )
             .join("");
           // messagesDiv.scrollTop = messagesDiv.scrollHeight;
