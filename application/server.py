@@ -114,6 +114,8 @@ def reset_scores():
         player.uno2 = 0
         player.total = 0
     db.session.commit()
+    global messages
+    messages = []  # Clear messages list
     return jsonify({"status": "success", "message": "Scores reset to zero."})
 
 messages = []  # Define the messages list globally
