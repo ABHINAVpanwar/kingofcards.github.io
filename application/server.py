@@ -78,14 +78,24 @@ def manage_scores():
     if request.method == 'POST':
         player = Player.query.filter_by(name=request.form['name']).first()
         if player:
-            player.monopoly1 = int(request.form['monopoly1'])
-            player.bluff1 = int(request.form['bluff1'])
-            player.spoon1 = int(request.form['spoon1'])
-            player.uno1 = int(request.form['uno1'])
-            player.monopoly2 = int(request.form['monopoly2'])
-            player.bluff2 = int(request.form['bluff2'])
-            player.spoon2 = int(request.form['spoon2'])
-            player.uno2 = int(request.form['uno2'])
+            # Update only the fields that are provided in the form and have a value greater than 0
+            if 'monopoly1' in request.form and int(request.form['monopoly1']) > 0:
+                player.monopoly1 = int(request.form['monopoly1'])
+            if 'bluff1' in request.form and int(request.form['bluff1']) > 0:
+                player.bluff1 = int(request.form['bluff1'])
+            if 'spoon1' in request.form and int(request.form['spoon1']) > 0:
+                player.spoon1 = int(request.form['spoon1'])
+            if 'uno1' in request.form and int(request.form['uno1']) > 0:
+                player.uno1 = int(request.form['uno1'])
+            if 'monopoly2' in request.form and int(request.form['monopoly2']) > 0:
+                player.monopoly2 = int(request.form['monopoly2'])
+            if 'bluff2' in request.form and int(request.form['bluff2']) > 0:
+                player.bluff2 = int(request.form['bluff2'])
+            if 'spoon2' in request.form and int(request.form['spoon2']) > 0:
+                player.spoon2 = int(request.form['spoon2'])
+            if 'uno2' in request.form and int(request.form['uno2']) > 0:
+                player.uno2 = int(request.form['uno2'])
+            # Save updated scores to the database
             db.session.commit()
         return render_template('manage.html', scores=Player.query.all())
     return render_template('manage.html', scores=Player.query.all())
