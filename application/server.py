@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
+from models import db, Player  # Import db and Player from models.py
 import os
 
 app = Flask(__name__)
@@ -14,50 +14,38 @@ CORS(app, resources={
 # Configure the database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///scores.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
 
-class Player(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    monopoly1 = db.Column(db.Integer, default=0)
-    bluff1 = db.Column(db.Integer, default=0)
-    spoon1 = db.Column(db.Integer, default=0)
-    uno1 = db.Column(db.Integer, default=0)
-    monopoly2 = db.Column(db.Integer, default=0)
-    bluff2 = db.Column(db.Integer, default=0)
-    spoon2 = db.Column(db.Integer, default=0)
-    uno2 = db.Column(db.Integer, default=0)
-    total = db.Column(db.Integer, default=0)
-
-# Create the database tables
-with app.app_context():
-    db.create_all()
+# Initialize the database with the app
+db.init_app(app)
 
 # Sample data for initializing the database
 def initialize_database():
-    sample_players = [
-        {"name": "ABHINAV", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-        {"name": "ABHISHEK", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-        {"name": "AKHIL", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-        {"name": "SAHIL", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-        {"name": "SHRUTI", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-        {"name": "UTKARSH", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
-         "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
-    ]
-    for player_data in sample_players:
-        player = Player.query.filter_by(name=player_data['name']).first()
-        if not player:
-            new_player = Player(**player_data)
-            db.session.add(new_player)
-    db.session.commit()
+    with app.app_context():  # Ensure this runs within the application context
+        sample_players = [
+            {"name": "ABHINAV", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+            {"name": "ABHISHEK", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+            {"name": "AKHIL", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+            {"name": "SAHIL", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+            {"name": "SHRUTI", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+            {"name": "UTKARSH", "monopoly1": 0, "bluff1": 0, "spoon1": 0, "uno1": 0,
+             "monopoly2": 0, "bluff2": 0, "spoon2": 0, "uno2": 0, "total": 0},
+        ]
+        for player_data in sample_players:
+            player = Player.query.filter_by(name=player_data['name']).first()
+            if not player:
+                new_player = Player(**player_data)
+                db.session.add(new_player)
+        db.session.commit()
 
-# Initialize the database with sample data
-initialize_database()
+# Create the database tables (if they don't exist)
+with app.app_context():
+    db.create_all()
+    initialize_database()  # Initialize the database with sample data
 
 # API route to provide scores
 @app.route('/scores', methods=['GET'])
