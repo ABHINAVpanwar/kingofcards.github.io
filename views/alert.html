@@ -221,10 +221,10 @@
           messagesDiv.innerHTML = data
             .map(
               (msg) =>
-                `<div class="message"><strong>${msg.sender}:</strong> ${msg.message}</div>`
+                `<div class="message"><strong>${msg.sender}:</strong> ${msg.message} <span style="color: #888;">(${msg.time})</span></div>`
             )
             .join("");
-          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+          // messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
           if (data.length > lastMessageCount) {
             updateMessageIcon(true);
@@ -242,7 +242,9 @@
         const icon = document.getElementById("chat-icon");
         if (newMessage) {
           // Play notification sound
-          const notificationSound = new Audio("../static/Song/Notification.mp3"); // Replace with your actual sound file
+          const notificationSound = new Audio(
+            "../static/Song/Notification.mp3"
+          ); // Replace with your actual sound file
           notificationSound.play();
           icon.style.background = "red"; // Highlight when new message arrives
         }
