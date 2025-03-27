@@ -129,7 +129,7 @@ def send_message():
     message = data.get('message')
 
     if sender and message:
-        current_time = datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%I:%M %p")
+        current_time = datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%d-%m-%Y %I:%M %p")
         messages.append({'sender': sender, 'message': message, 'time': current_time})
         return jsonify({'status': 'Message received', 'message': data})
     
