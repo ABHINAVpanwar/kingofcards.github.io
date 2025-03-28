@@ -235,8 +235,12 @@
             .join("");
           // messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
+          // Check for new messages and play sound if applicable
           if (data.length > lastMessageCount) {
-            updateMessageIcon(data[data.length - 1].message);
+            const lastMsg = data[data.length - 1];
+            if (isRecentMessage(lastMsg.message)) {
+              updateMessageIcon(lastMsg.message);
+            }
           }
 
           lastMessageCount = data.length;
@@ -247,7 +251,8 @@
 
       function updateMessageIcon(lastMessage) {
         const icon = document.getElementById("chat-icon");
-        const words = lastMessage.toLowerCase().split(" ");
+        const msgWithoutTime = extractMessageText(lastMessage);
+        const words = msgWithoutTime.toLowerCase().split(" ");
         let memePlayed = false;
 
         for (const word of words) {
@@ -277,6 +282,48 @@
       function changeIconColorToGold() {
         const icon = document.getElementById("chat-icon");
         icon.style.background = "gold";
+      }
+
+      function getCurrentFormattedTime() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, "0");
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const year = now.getFullYear();
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const period = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12 || 12;
+        return `${day}-${month}-${year} ${hours}:${minutes} ${period}`;
+      }
+
+      function extractMessageText(message) {
+        return message
+          .replace(/\d{2}-\d{2}-\d{4} \d{1,2}:\d{2} (AM|PM)$/, "")
+          .trim();
+      }
+
+      function isRecentMessage(message) {
+        const messageTimeStr = message.match(
+          /\d{2}-\d{2}-\d{4} \d{1,2}:\d{2} (AM|PM)$/
+        );
+
+        if (!messageTimeStr) return false;
+
+        const now = new Date();
+        const [date, time, period] = messageTimeStr[0].split(" ");
+        const [day, month, year] = date.split("-").map(Number);
+        let [hour, minute] = time.split(":").map(Number);
+
+        if (period === "PM" && hour !== 12) {
+          hour += 12;
+        } else if (period === "AM" && hour === 12) {
+          hour = 0;
+        }
+
+        const messageDateTime = new Date(year, month - 1, day, hour, minute);
+        const timeDiff = Math.abs(now - messageDateTime) / 1000; // Difference in seconds
+
+        return timeDiff <= 5; // Only play sound if message is within 5 seconds
       }
 
       setInterval(loadMessages, 2000);
