@@ -181,10 +181,10 @@
           document.getElementById("subjectKeyInput").value = `KING OF CARDS`;
           document.getElementById(
             "messageInput"
-          ).value = `HI ${message.toUpperCase()},  
+          ).value = `HI ${message.toUpperCase()},
 
-   INVITE FROM ${username.toUpperCase()}  
-   JOIN THE CHAT HERE : https://kingofcards.netlify.app/views/alert`;
+         INVITE FROM ${username.toUpperCase()}
+         JOIN THE CHAT HERE : https://kingofcards.netlify.app/views/alert`;
           form.submit();
         }
 
@@ -238,13 +238,28 @@
         }
       }
 
+      const soundMap = {
+        kehna: "../static/Song/Voicy_Are kehna kya chahte ho.mp3",
+        prabhu: "../static/Song/Voicy_He Prabhu.mp3",
+        jetha: "../static/Song/Voicy_Jetha Nonsense.mp3",
+        padhai: "../static/Song/Voicy_Padhaai Likhaai me dhyan do.mp3",
+        paisa: "../static/Song/Voicy_Paisa hi paisa.mp3",
+      };
+
       function updateMessageIcon(newMessage) {
         const icon = document.getElementById("chat-icon");
-        if (newMessage) {
-          // Play notification sound
+        const lastMessage = newMessage?.trim().toLowerCase(); // Get last message text
+
+        if (soundMap[lastMessage]) {
+          // ✅ Play meme sound if matched
+          const sound = new Audio(soundMap[lastMessage]);
+          sound.play();
+          icon.style.background = ""; // No notification if meme sound is played
+        } else if (newMessage) {
+          // ✅ Play notification sound if no meme sound detected
           const notificationSound = new Audio(
             "../static/Song/Notification.mp3"
-          ); // Replace with your actual sound file
+          );
           notificationSound.play();
           icon.style.background = "red"; // Highlight when new message arrives
         }
