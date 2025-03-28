@@ -248,20 +248,23 @@
 
       function updateMessageIcon(newMessage) {
         const icon = document.getElementById("chat-icon");
-        const lastMessage = newMessage?.trim().toLowerCase(); // Get last message text
+        // ✅ Check if newMessage is a valid string before using trim()
+        if (typeof newMessage === "string" && newMessage.trim() !== "") {
+          const lastMessage = newMessage.trim().toLowerCase();
 
-        if (soundMap[lastMessage]) {
-          // ✅ Play meme sound if matched
-          const sound = new Audio(soundMap[lastMessage]);
-          sound.play();
-          icon.style.background = ""; // No notification if meme sound is played
-        } else if (newMessage) {
-          // ✅ Play notification sound if no meme sound detected
-          const notificationSound = new Audio(
-            "../static/Song/Notification.mp3"
-          );
-          notificationSound.play();
-          icon.style.background = "red"; // Highlight when new message arrives
+          if (soundMap[lastMessage]) {
+            // ✅ Play meme sound if matched
+            const sound = new Audio(soundMap[lastMessage]);
+            sound.play();
+            icon.style.background = ""; // No notification if meme sound is played
+          } else {
+            // ✅ Play notification sound if no meme sound detected
+            const notificationSound = new Audio(
+              "../static/Song/Notification.mp3"
+            );
+            notificationSound.play();
+            icon.style.background = "red"; // Highlight when new message arrives
+          }
         }
       }
 
