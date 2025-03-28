@@ -201,7 +201,7 @@
           try {
             const current_time = getCurrentFormattedTime(); // Add time to message
             const finalMessage = `${message} ${current_time}`;
-            
+
             await fetch(
               "https://kingofcards-github-io.onrender.com/send_message",
               {
@@ -305,15 +305,9 @@
           .trim();
       }
 
-      function isRecentMessage(message) {
-        const messageTimeStr = message.match(
-          /\d{2}-\d{2}-\d{4} \d{1,2}:\d{2} (AM|PM)$/
-        );
-
-        if (!messageTimeStr) return false;
-
+      function isRecentMessage(messageTime) {
         const now = new Date();
-        const [date, time, period] = messageTimeStr[0].split(" ");
+        const [date, time, period] = messageTime.split(" ");
         const [day, month, year] = date.split("-").map(Number);
         let [hour, minute] = time.split(":").map(Number);
 
@@ -324,9 +318,8 @@
         }
 
         const messageDateTime = new Date(year, month - 1, day, hour, minute);
-        const timeDiff = Math.abs(now - messageDateTime) / 1000; // Difference in seconds
-
-        return timeDiff <= 5; // Only play sound if message is within 5 seconds
+        const timeDiff = Math.abs(now - messageDateTime) / 1000;
+        return timeDiff <= 5;
       }
 
       setInterval(loadMessages, 2000);
