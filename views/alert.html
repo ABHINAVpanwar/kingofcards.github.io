@@ -101,6 +101,15 @@
       let isAuthenticated = false;
       let username = "";
 
+      // Meme sound mapping
+      const memeSounds = {
+        kehna: "../static/Sound/Voicy_Are kehna kya chahte ho.mp3",
+        prabhu: "../static/Sound/Voicy_He Prabhu.mp3",
+        jetha: "../static/Sound/Voicy_Jetha Nonsense.mp3",
+        padhai: "../static/Sound/Voicy_Padhaai Likhaai me dhyan do.mp3",
+        paisa: "../static/Sound/Voicy_Paisa hi paisa.mp3",
+      };
+
       async function fetchPassword() {
         try {
           const response = await fetch(
@@ -181,10 +190,10 @@
           document.getElementById("subjectKeyInput").value = `KING OF CARDS`;
           document.getElementById(
             "messageInput"
-          ).value = `HI ${message.toUpperCase()},
+          ).value = `HI ${message.toUpperCase()},  
 
-         INVITE FROM ${username.toUpperCase()}
-         JOIN THE CHAT HERE : https://kingofcards.netlify.app/views/alert`;
+   INVITE FROM ${username.toUpperCase()}  
+   JOIN THE CHAT HERE : https://kingofcards.netlify.app/views/alert`;
           form.submit();
         }
 
@@ -227,9 +236,7 @@
           // messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
           if (data.length > lastMessageCount) {
-            updateMessageIcon(true);
-          } else {
-            updateMessageIcon(false);
+            updateMessageIcon(data[data.length - 1].message);
           }
 
           lastMessageCount = data.length;
@@ -238,34 +245,33 @@
         }
       }
 
-      const soundMap = {
-        kehna: "../static/Song/Voicy_Are kehna kya chahte ho.mp3",
-        prabhu: "../static/Song/Voicy_He Prabhu.mp3",
-        jetha: "../static/Song/Voicy_Jetha Nonsense.mp3",
-        padhai: "../static/Song/Voicy_Padhaai Likhaai me dhyan do.mp3",
-        paisa: "../static/Song/Voicy_Paisa hi paisa.mp3",
-      };
-
-      function updateMessageIcon(newMessage) {
+      function updateMessageIcon(lastMessage) {
         const icon = document.getElementById("chat-icon");
-        // ✅ Check if newMessage is a valid string before using trim()
-        if (typeof newMessage === "string" && newMessage.trim() !== "") {
-          const lastMessage = newMessage.trim().toLowerCase();
+        const words = lastMessage.toLowerCase().split(" ");
+        let memePlayed = false;
 
-          if (soundMap[lastMessage]) {
-            // ✅ Play meme sound if matched
-            const sound = new Audio(soundMap[lastMessage]);
-            sound.play();
-            icon.style.background = ""; // No notification if meme sound is played
-          } else {
-            // ✅ Play notification sound if no meme sound detected
-            const notificationSound = new Audio(
-              "../static/Song/Notification.mp3"
-            );
-            notificationSound.play();
-            icon.style.background = "red"; // Highlight when new message arrives
+        for (const word of words) {
+          if (memeSounds[word]) {
+            playMemeSound(memeSounds[word]);
+            memePlayed = true;
+            break;
           }
         }
+
+        if (!memePlayed) {
+          playNotificationSound();
+          icon.style.background = "red";
+        }
+      }
+
+      function playMemeSound(soundFile) {
+        const sound = new Audio(soundFile);
+        sound.play();
+      }
+
+      function playNotificationSound() {
+        const notificationSound = new Audio("../static/Song/Notification.mp3");
+        notificationSound.play();
       }
 
       function changeIconColorToGold() {
@@ -276,7 +282,6 @@
       setInterval(loadMessages, 2000);
       loadMessages();
 
-      // Add click event listener to change icon color to gold when clicked
       document
         .getElementById("chat-icon")
         .addEventListener("click", changeIconColorToGold);
