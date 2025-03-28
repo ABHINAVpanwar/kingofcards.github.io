@@ -247,14 +247,38 @@
 
       function updateMessageIcon(lastMessage) {
         const icon = document.getElementById("chat-icon");
-        const words = lastMessage.toLowerCase().split(" ");
+        const words = lastMessage.message.toLowerCase().split(" ");
         let memePlayed = false;
 
-        for (const word of words) {
-          if (memeSounds[word]) {
-            playMemeSound(memeSounds[word]);
-            memePlayed = true;
-            break;
+        // Message time
+        const timeOnly =
+          lastMessage.time.split(" ")[1] + " " + lastMessage.time.split(" ")[2];
+
+        // Parse message time
+        const [msgHour, msgMinute] = timeOnly
+          .split(" ")[0]
+          .split(":")
+          .map(Number);
+        const msgPeriod = timeOnly.split(" ")[1];
+        let msgHours24 =
+          msgPeriod === "PM" && msgHour !== 12 ? msgHour + 12 : msgHour;
+        msgHours24 = msgPeriod === "AM" && msgHour === 12 ? 0 : msgHours24;
+
+        const messageTime = new Date();
+        messageTime.setHours(msgHours24, msgMinute, 0, 0);
+
+        // Current time
+        const now = new Date();
+        const timeDiff = Math.abs(now - messageTime) / 1000;
+
+        // Check if message is recent and has meme sound
+        if (timeDiff <= 5) {
+          for (const word of words) {
+            if (memeSounds[word]) {
+              playMemeSound(memeSounds[word]);
+              memePlayed = true;
+              break;
+            }
           }
         }
 
