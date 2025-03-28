@@ -241,7 +241,7 @@
           // Check for new messages and play sound if applicable
           if (data.length > lastMessageCount) {
             const lastMsg = data[data.length - 1];
-            if (isRecentMessage(lastMsg.message)) {
+            if (lastMsg && lastMsg.time && isRecentMessage(lastMsg.time)) {
               updateMessageIcon(lastMsg.message);
             }
           }
