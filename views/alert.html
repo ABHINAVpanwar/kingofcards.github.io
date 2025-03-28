@@ -97,10 +97,11 @@
       </div>
     </div>
     <script>
-      let lastMessageCount = 0;
+      let lastMessageCount = 0; // Track the last number of messages
       let isAuthenticated = false;
       let username = "";
-    
+
+      // Meme sound mapping
       const memeSounds = {
         kehna: "../static/Sound/Voicy_Are kehna kya chahte ho.mp3",
         prabhu: "../static/Sound/Voicy_He Prabhu.mp3",
@@ -108,7 +109,7 @@
         padhai: "../static/Sound/Voicy_Padhaai Likhaai me dhyan do.mp3",
         paisa: "../static/Sound/Voicy_Paisa hi paisa.mp3",
       };
-    
+
       async function fetchPassword() {
         try {
           const response = await fetch(
@@ -121,18 +122,18 @@
           return null;
         }
       }
-    
+
       async function authenticateUser() {
         const serverPassword = await fetchPassword();
         if (!serverPassword) return;
         document.getElementById("loginDiv").style.display = "flex";
         document.getElementById("overlay").style.display = "block";
       }
-    
+
       function validateLogin() {
         username = document.getElementById("username").value;
         const enteredPassword = document.getElementById("password").value;
-    
+
         fetchPassword().then((serverPassword) => {
           if (enteredPassword === serverPassword) {
             isAuthenticated = true;
@@ -145,7 +146,7 @@
           }
         });
       }
-    
+
       function toggleChat() {
         if (!isAuthenticated) {
           authenticateUser();
@@ -157,45 +158,45 @@
           chatbox.style.display = "none";
         } else {
           chatbox.style.display = "flex";
-          icon.style.background = "";
+          icon.style.background = ""; // Clear red alert when chat opens
         }
       }
-    
+
       document
         .getElementById("message")
         .addEventListener("keypress", function (event) {
           if (event.key === "Enter") {
-            event.preventDefault();
+            event.preventDefault(); // Prevents unintended form submission
             sendMessage();
           }
         });
-    
+
       async function sendMessage() {
         if (!isAuthenticated) {
           alert("PLEASE LOGIN FIRST !!");
           return;
         }
-    
+
         const message = document.getElementById("message").value.trim();
-    
+
         const form = document.getElementById("form");
         const accessKeys = {
           "@abhinav": "4b490f5d-d424-4b8a-8474-f18ac12f4b52",
           "@utkarsh": "4d6d075d-2a50-465e-acb1-6e59d6039eb6",
         };
-    
+
         if (accessKeys[message]) {
           document.getElementById("accessKeyInput").value = accessKeys[message];
           document.getElementById("subjectKeyInput").value = `KING OF CARDS`;
           document.getElementById(
             "messageInput"
           ).value = `HI ${message.toUpperCase()},  
-    
-       INVITE FROM ${username.toUpperCase()}  
-       JOIN THE CHAT HERE : https://kingofcards.netlify.app/views/alert`;
+
+   INVITE FROM ${username.toUpperCase()}  
+   JOIN THE CHAT HERE : https://kingofcards.netlify.app/views/alert`;
           form.submit();
         }
-    
+
         if (message) {
           try {
             await fetch(
@@ -213,17 +214,17 @@
           }
         }
       }
-    
+
       async function loadMessages() {
         try {
           const response = await fetch(
             "https://kingofcards-github-io.onrender.com/get_messages"
           );
-    
+
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
-    
+
           const data = await response.json();
           const messagesDiv = document.getElementById("messages");
           messagesDiv.innerHTML = data
@@ -232,25 +233,23 @@
                 `<div class="message"><strong>${msg.sender}:</strong> ${msg.message} <span style="color: #888; font-size: 10px;">${msg.time}</span></div>`
             )
             .join("");
-    
+          // messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
           if (data.length > lastMessageCount) {
-            const lastMsg = data[data.length - 1];
-            if (lastMsg && lastMsg.time && isRecentMessage(lastMsg.time)) {
-              updateMessageIcon(lastMsg.message);
-            }
+            updateMessageIcon(data[data.length - 1].message);
           }
-    
+
           lastMessageCount = data.length;
         } catch (error) {
           console.error("Error loading messages:", error);
         }
       }
-    
+
       function updateMessageIcon(lastMessage) {
         const icon = document.getElementById("chat-icon");
         const words = lastMessage.toLowerCase().split(" ");
         let memePlayed = false;
-    
+
         for (const word of words) {
           if (memeSounds[word]) {
             playMemeSound(memeSounds[word]);
@@ -258,64 +257,35 @@
             break;
           }
         }
-    
+
         if (!memePlayed) {
           playNotificationSound();
           icon.style.background = "red";
         }
       }
-    
+
       function playMemeSound(soundFile) {
-        console.log("Playing sound:", soundFile);
         const sound = new Audio(soundFile);
-        sound.onerror = () => {
-          console.error("Error loading sound:", soundFile);
-        };
-        sound.play().catch((error) => {
-          console.error("Error playing sound:", error);
-        });
+        sound.play();
       }
-    
+
       function playNotificationSound() {
         const notificationSound = new Audio("../static/Song/Notification.mp3");
-        notificationSound.play().catch((error) => {
-          console.error("Error playing notification sound:", error);
-        });
+        notificationSound.play();
       }
-    
+
       function changeIconColorToGold() {
         const icon = document.getElementById("chat-icon");
         icon.style.background = "gold";
       }
-    
-      function isRecentMessage(messageTime) {
-        const now = new Date();
-        const [date, time, period] = messageTime.split(" ");
-        const [day, month, year] = date.split("-").map(Number);
-        let [hour, minute] = time.split(":").map(Number);
-    
-        if (period === "PM" && hour !== 12) {
-          hour += 12;
-        } else if (period === "AM" && hour === 12) {
-          hour = 0;
-        }
-    
-        const messageDateTime = new Date(year, month - 1, day, hour, minute);
-        const timeDiff = Math.abs(now - messageDateTime) / 1000;
-        return timeDiff <= 5;
-      }
-    
-      document.getElementById("chat-icon").addEventListener("click", () => {
-        changeIconColorToGold();
-        const initialSound = new Audio("../static/Song/Notification.mp3");
-        initialSound.play().catch((error) =>
-          console.error("Autoplay blocked:", error)
-        );
-      });
-    
+
       setInterval(loadMessages, 2000);
       loadMessages();
-    </script>    
+
+      document
+        .getElementById("chat-icon")
+        .addEventListener("click", changeIconColorToGold);
+    </script>
     <script>
       let fun = document.getElementById("scroll");
       window.addEventListener("scroll", () => {
