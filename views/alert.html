@@ -199,6 +199,9 @@
 
         if (message) {
           try {
+            const current_time = getCurrentFormattedTime(); // Add time to message
+            const finalMessage = `${message} ${current_time}`;
+            
             await fetch(
               "https://kingofcards-github-io.onrender.com/send_message",
               {
