@@ -103,13 +103,14 @@
 
       // Meme sound mapping
       const memeSounds = {
-        meme1: "../static/Sound/Voicy_Are kehna kya chahte ho.mp3",
-        meme2: "../static/Sound/Voicy_He Prabhu.mp3",
-        meme3: "../static/Sound/Voicy_Jetha Nonsense.mp3",
-        meme4: "../static/Sound/Voicy_Padhaai Likhaai me dhyan do.mp3",
-        meme5: "../static/Sound/Voicy_Paisa hi paisa.mp3",
-        meme6: "../static/Sound/windows-xp-shutdown.mp3",
-        meme7: "../static/Sound/wow-anime.mp3",
+        meme1: "../static/Sound/Voicy_He Prabhu.mp3",
+        meme2: "../static/Sound/Voicy_Jetha Nonsense.mp3",
+        meme3: "../static/Sound/Voicy_Padhaai Likhaai me dhyan do.mp3",
+        meme4: "../static/Sound/windows-xp-shutdown.mp3",
+        meme5: "../static/Sound/wow-anime.mp3",
+        meme6: "../static/Sound/heartbeat.mp3",
+        meme7: "../static/Sound/sad-piano.mp3",
+        meme8: "../static/Sound/among-us.mp3",
       };
 
       async function fetchPassword() {
@@ -328,44 +329,45 @@
           }
         }
       });
-      fetch("https://kingofcards-github-io.onrender.com/scores")
-        .then((response) => response.json())
-        .then((data) => {
-          // Sort the players as before
-          data.sort((a, b) => {
-            const winsA = [
-              a.monopoly1,
-              a.bluff1,
-              a.spoon1,
-              a.uno1,
-              a.monopoly2,
-              a.bluff2,
-              a.spoon2,
-              a.uno2,
-            ].filter((score) => score === 2).length;
-            const winsB = [
-              b.monopoly1,
-              b.bluff1,
-              b.spoon1,
-              b.uno1,
-              b.monopoly2,
-              b.bluff2,
-              b.spoon2,
-              b.uno2,
-            ].filter((score) => score === 2).length;
+      function fetchscores() {
+        fetch("https://kingofcards-github-io.onrender.com/scores")
+          .then((response) => response.json())
+          .then((data) => {
+            // Sort the players as before
+            data.sort((a, b) => {
+              const winsA = [
+                a.monopoly1,
+                a.bluff1,
+                a.spoon1,
+                a.uno1,
+                a.monopoly2,
+                a.bluff2,
+                a.spoon2,
+                a.uno2,
+              ].filter((score) => score === 2).length;
+              const winsB = [
+                b.monopoly1,
+                b.bluff1,
+                b.spoon1,
+                b.uno1,
+                b.monopoly2,
+                b.bluff2,
+                b.spoon2,
+                b.uno2,
+              ].filter((score) => score === 2).length;
 
-            return winsB - winsA || b.total - a.total;
-          });
+              return winsB - winsA || b.total - a.total;
+            });
 
-          // Clear existing rows before adding new ones
-          const tableBody = document.getElementById("score-table");
-          tableBody.innerHTML = "";
+            // Clear existing rows before adding new ones
+            const tableBody = document.getElementById("score-table");
+            tableBody.innerHTML = "";
 
-          let grandTotal = 0;
-          let tableContent = `<table>`;
+            let grandTotal = 0;
+            let tableContent = `<table>`;
 
-          data.forEach((player, index) => {
-            tableContent += `
+            data.forEach((player, index) => {
+              tableContent += `
           <tr>
             <td>${player.name}</td>
             <td>${player.monopoly1}</td>
@@ -379,17 +381,17 @@
             <td>${player.total}</td>
           </tr>`;
 
-            const row = document.createElement("tr");
+              const row = document.createElement("tr");
 
-            if (index === 0) {
-              row.classList.add("gold");
-            } else if (index === 1) {
-              row.classList.add("silver");
-            } else {
-              row.classList.add("white");
-            }
+              if (index === 0) {
+                row.classList.add("gold");
+              } else if (index === 1) {
+                row.classList.add("silver");
+              } else {
+                row.classList.add("white");
+              }
 
-            row.innerHTML = `
+              row.innerHTML = `
               <td>${player.name}</td>
               <td class="hide">${player.monopoly1}</td>
               <td class="hide">${player.bluff1}</td>
@@ -401,53 +403,54 @@
               <td class="hide">${player.uno2}</td>
               <td>${player.total}</td>
             `;
-            tableBody.appendChild(row);
-            grandTotal += player.total;
-          });
+              tableBody.appendChild(row);
+              grandTotal += player.total;
+            });
 
-          tableContent += `
+            tableContent += `
           </table>`;
 
-          if (grandTotal === 24) {
-            const winner = data[0].name;
-            const winnerOverlay = document.getElementById("winner-overlay");
-            const winnerText = document.getElementById("winner-text");
-            const confettiContainer =
-              document.getElementById("confetti-container");
+            if (grandTotal === 24) {
+              const winner = data[0].name;
+              const winnerOverlay = document.getElementById("winner-overlay");
+              const winnerText = document.getElementById("winner-text");
+              const confettiContainer =
+                document.getElementById("confetti-container");
 
-            winnerText.textContent = `THE WINNER IS "${winner}"! 🎉`;
-            winnerOverlay.classList.remove("hidden");
+              winnerText.textContent = `THE WINNER IS "${winner}"! 🎉`;
+              winnerOverlay.classList.remove("hidden");
 
-            // Generate confetti
-            for (let i = 0; i < 200; i++) {
-              const confetti = document.createElement("div");
-              confetti.classList.add("confetti");
-              confetti.style.left = Math.random() * 100 + "vw";
-              confetti.style.animationDelay = Math.random() * 3 + "s";
-              confetti.style.background = `hsl(${
-                Math.random() * 360
-              }, 100%, 50%)`;
-              confettiContainer.appendChild(confetti);
-            }
-
-            // Hide overlay after 1 min
-            setTimeout(() => {
-              winnerOverlay.classList.add("hidden");
-              confettiContainer.innerHTML = ""; // Clear confetti
-              const form = document.getElementById("form");
-              const accessKeyInput = document.getElementById("accessKeyInput");
-              const messageInput = document.getElementById("messageInput");
-              const subjectKeyInput =
-                document.getElementById("subjectKeyInput");
-
-              if (winner === "ABHINAV") {
-                accessKeyInput.value = "4b490f5d-d424-4b8a-8474-f18ac12f4b52";
-              } else if (winner === "UTKARSH") {
-                accessKeyInput.value = "4d6d075d-2a50-465e-acb1-6e59d6039eb6";
+              // Generate confetti
+              for (let i = 0; i < 200; i++) {
+                const confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.animationDelay = Math.random() * 3 + "s";
+                confetti.style.background = `hsl(${
+                  Math.random() * 360
+                }, 100%, 50%)`;
+                confettiContainer.appendChild(confetti);
               }
-              subjectKeyInput.value = `KING OF CARDS WINNER "${winner}"`;
 
-              messageInput.value = `
+              // Hide overlay after 1 min
+              setTimeout(() => {
+                winnerOverlay.classList.add("hidden");
+                confettiContainer.innerHTML = ""; // Clear confetti
+                const form = document.getElementById("form");
+                const accessKeyInput =
+                  document.getElementById("accessKeyInput");
+                const messageInput = document.getElementById("messageInput");
+                const subjectKeyInput =
+                  document.getElementById("subjectKeyInput");
+
+                if (winner === "ABHINAV") {
+                  accessKeyInput.value = "4b490f5d-d424-4b8a-8474-f18ac12f4b52";
+                } else if (winner === "UTKARSH") {
+                  accessKeyInput.value = "4d6d075d-2a50-465e-acb1-6e59d6039eb6";
+                }
+                subjectKeyInput.value = `KING OF CARDS WINNER "${winner}"`;
+
+                messageInput.value = `
 HI ${winner},
 
 CONGRATULATIONS! 🎉 YOU’VE OFFICIALLY CLAIMED THE THRONE AS THE KING OF CARDS! 👑
@@ -462,11 +465,15 @@ WE CAN’T WAIT TO SEE YOU IN ACTION AGAIN. KEEP PRACTICING.
 
 CHEERS,  
 THE KING OF CARDS TEAM`;
-              form.submit();
-            }, 60000);
-          }
-        })
-        .catch((error) => console.error("Error fetching scores:", error));
+                form.submit();
+              }, 60000);
+            }
+          })
+          .catch((error) => console.error("Error fetching scores:", error));
+      }
+
+      fetchscores();
+      setInterval(fetchscores, 300000);
     </script>
   </body>
 </html>
