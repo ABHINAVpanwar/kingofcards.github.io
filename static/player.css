@@ -144,7 +144,7 @@ input[type="checkbox"] {
 
 #me p {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 @media (min-width: 500px) {
