@@ -69,6 +69,8 @@
       <textarea name="message" class="wao" id="messageInput"></textarea>
     </form>
     <div id="overlay"></div>
+    <!-- Hidden YouTube Player Container -->
+    <div id="youtube-player" style="display: none"></div>
     <div id="loginDiv">
       <input
         type="text"
@@ -103,14 +105,13 @@
 
       // Meme sound mapping
       const memeSounds = {
-        meme1: "../static/Sound/Voicy_He Prabhu.mp3",
-        meme2: "../static/Sound/Voicy_Jetha Nonsense.mp3",
-        meme3: "../static/Sound/Voicy_Padhaai Likhaai me dhyan do.mp3",
-        meme4: "../static/Sound/windows-xp-shutdown.mp3",
-        meme5: "../static/Sound/wow-anime.mp3",
-        meme6: "../static/Sound/heartbeat.mp3",
-        meme7: "../static/Sound/sad-piano.mp3",
-        meme8: "../static/Sound/among-us.mp3",
+        meme1: "../static/Sound/Voicy_Jetha Nonsense.mp3",
+        meme2: "../static/Sound/Voicy_Padhaai Likhaai me dhyan do.mp3",
+        meme3: "../static/Sound/windows-xp-shutdown.mp3",
+        meme4: "../static/Sound/wow-anime.mp3",
+        meme5: "../static/Sound/heartbeat.mp3",
+        meme6: "../static/Sound/sad-piano.mp3",
+        meme7: "../static/Sound/among-us.mp3",
       };
 
       async function fetchPassword() {
@@ -202,14 +203,11 @@
 
         if (message) {
           try {
-            await fetch(
-              "https://kingofcards.onrender.com//send_message",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ sender: username, message }),
-              }
-            );
+            await fetch("https://kingofcards.onrender.com//send_message", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ sender: username, message }),
+            });
             document.getElementById("message").value = "";
             loadMessages();
           } catch (error) {
@@ -248,16 +246,33 @@
         }
       }
 
+      // SIMPLIFIED YouTube URL detection and playback
+      function extractYouTubeUrl(message) {
+        const youtubeRegex =
+          /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([\w\-]{11})/i;
+        const match = message.match(youtubeRegex);
+        return match ? match[1] : null;
+      }
+
       function updateMessageIcon(lastMessage) {
         const icon = document.getElementById("chat-icon");
         const words = lastMessage.toLowerCase().split(" ");
         let memePlayed = false;
 
-        for (const word of words) {
-          if (memeSounds[word]) {
-            playMemeSound(memeSounds[word]);
-            memePlayed = true;
-            break;
+        // Check for YouTube URL
+        const youtubeVideoId = extractYouTubeUrl(lastMessage);
+        if (youtubeVideoId) {
+          playYouTubeAudio(youtubeVideoId);
+          mediaPlayed = true;
+        }
+        // Check for meme sounds
+        else {
+          for (const word of words) {
+            if (memeSounds[word]) {
+              playMemeSound(memeSounds[word]);
+              mediaPlayed = true;
+              break;
+            }
           }
         }
 
@@ -265,6 +280,30 @@
           playNotificationSound();
           icon.style.background = "red";
         }
+      }
+
+      // Simple YouTube audio playback (no UI needed)
+      function playYouTubeAudio(videoId) {
+        // Create hidden iframe for background playback
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&controls=0&showinfo=0&rel=0`;
+        iframe.width = "0";
+        iframe.height = "0";
+        iframe.style.display = "none";
+        iframe.allow = "autoplay";
+
+        // Remove any existing YouTube iframe
+        const oldIframe = document.querySelector('iframe[src*="youtube.com"]');
+        if (oldIframe) oldIframe.remove();
+
+        document.body.appendChild(iframe);
+
+        // Auto-remove after 5 minutes to prevent too many iframes
+        setTimeout(() => {
+          if (iframe && iframe.parentNode) {
+            iframe.remove();
+          }
+        }, 300000); // 5 minutes
       }
 
       function playMemeSound(soundFile) {
@@ -477,3 +516,4 @@ THE KING OF CARDS TEAM`;
     </script>
   </body>
 </html>
+
