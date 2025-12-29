@@ -68,7 +68,7 @@ html {
   border-radius: 15px;
   text-align: center;
   z-index: 10000;
-  border: 3px solid #4caf50; /* Green border */
+  border: 3px solid gold; /* Green border */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
   width: 90%;
   max-width: 500px; /* Maximum width */
@@ -81,7 +81,7 @@ html {
 }
 
 .alert-box button {
-  background-color: #4caf50;
+  background-color: gold;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -92,7 +92,7 @@ html {
 }
 
 .alert-box button:hover {
-  background-color: #45a049;
+  background-color: goldenrod;
 }
 
 nav {

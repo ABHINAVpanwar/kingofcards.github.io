@@ -346,7 +346,7 @@ table th {
   overflow: hidden;
 }
 #chat-header {
-  background: #4caf50;
+  background: gold;
   color: white;
   padding: 10px;
   text-align: center;
@@ -365,7 +365,7 @@ table th {
   border-radius: 5px;
 }
 .message strong {
-  color: #4caf50;
+  color: gold;
 }
 #chat-input {
   display: flex;
@@ -385,7 +385,7 @@ table th {
   min-width: 0; /* This ensures inputs do not overflow */
 }
 #chat-input button {
-  background: #4caf50;
+  background: gold;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -395,7 +395,7 @@ table th {
   flex-shrink: 0; /* Prevents the button from shrinking */
 }
 #chat-input button:hover {
-  background: green;
+  background: goldenrod;
 }
 #overlay {
   display: none;
@@ -442,14 +442,14 @@ table th {
 #loginDiv button {
   width: 100%;
   padding: 10px;
-  background-color: #4caf50;
+  background-color: gold;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 #loginDiv button:hover {
-  background-color: green;
+  background-color: goldenrod;
 }
 
 @media (max-width: 850px) and (min-width: 600px) {
